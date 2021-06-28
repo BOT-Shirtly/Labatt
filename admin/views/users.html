@@ -1,0 +1,66 @@
+<h1>All Users</h1>
+
+<hr style="margin-bottom: 0px;">
+<div class="container" style="padding:0px;">
+    <div class="row" style="padding: 0px 15px 0px 15px;">
+        <div class="col-3" style="border-right: 1px solid #ccc;padding: 0px 0px 0px 0px;">
+            <div class="row" style="position: relative;margin: 0px;padding: 15px 10px;border-bottom: 1px solid #ccc;">
+                <div class="col-12" style="padding: 0px 10px;">
+                    <div class="md-form" style="margin: 0;">
+                        <input type="text" id="searchUser" class="form-control" style="margin: 0;" onkeyup="searchSickKidsUser()">
+                        <label for="searchUser">Search User</label>
+                    </div>
+                </div>
+            </div>
+            <div id="usersList" style="height: 530px;overflow: hidden;overflow-x: hidden;overflow-y: auto;">
+                <div class="preloader-wrapper big active" style="display:block;margin:20px auto;">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <script>
+                function searchSickKidsUser() {
+                    var searchValue = $("#searchUser").val();
+                    $("#usersList .row").each(function() {
+                        if ($(this).find("p").text().search(new RegExp(searchValue, "i")) < 0) {
+                            $(this).fadeOut();
+                        } else {
+                            $(this).fadeIn()
+                        }
+                    });
+                }
+
+            </script>
+
+        </div>
+        <div class="col-9" style="padding: 0px">
+            <div class="row" style="border-bottom: 1px solid #ccc;padding: 12.5px;margin: 0px !important;">
+                <div class="col-1">
+                    <i class="fas fa-user" style="margin: 0px;font-size: 46px;"></i>
+                </div>
+                <div class="col-11" style="position: relative;">
+                    <p style="text-align: left;margin: 15px 0px;" id="selectedUser">No User Selected</p>
+                    <!--button class="btn btn-primary" style="position: absolute;margin: 0;padding: 5px 10px;background-color: #00ACD7 !important;top: 8px;right: 15px;" onclick="getInvoices()" id="thisUserInvoices" disabled><i class="fas fa-file-invoice-dollar" style="margin: 0px;"></i> Invoices</button-->
+                </div>
+            </div>
+            <div class="container" style="padding: 15px 20px;">
+                <h6 style="border-bottom: 1px solid #ccc;padding-bottom: 15px;margin: 0;">Order(s) List</h6>
+                <div id="thisUserOrderlist">
+                    <div class="col-12">
+                        <p style="text-align: center;margin: 15px 0px;" id="selectedUser">No User Selected</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
