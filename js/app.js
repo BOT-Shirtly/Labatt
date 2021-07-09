@@ -1363,44 +1363,47 @@ function checkOutModal() {
   } else {
     $("#checkOutModal").modal("show");
     $("#skCheckOutItemsDetails").html("");
-    $("#shoppingCartProds .col-12").each(function () {
-      var image = $(this).find(".thisCartProdImage").attr("src");
-      var prodName = $(this).find(".thisCartProdName").text();
-      var prodSku = $(this).find(".thisCartProdSku span").text();
-      var prodColor = $(this).find(".thisCartProdColor span").text();
-      var prodSize = $(this).find(".thisCartProdSize span").text();
-      var html = '<div class="row" style="padding: 0 15px">';
-      html += '<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">';
-      html += '<p class="prodHeading">Image</p>';
-      html +=
-        '<img class="thisCartProdImage" src="' +
-        image +
-        '" style="width: 100%"/>';
-      html += "</div>";
-      html += '<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-left">';
-      html += '<p class="prodHeading">Information</p>';
-      html += '<div style="line-height: 16px">';
-      html +=
-        '<p class="thisCartProdName" style="margin: 0px; font-size: 12px">' +
-        prodName;
-      html += "</p>";
-      html +=
-        '<p class="thisCartProdSku" style="margin: 0px; font-size: 10px">';
-      html += "SKU:<span>" + prodSku + "</span>";
-      html += "</p>";
-      html +=
-        '<p class="thisCartProdColor" style="margin: 0px; font-size: 10px">';
-      html += "Color:<span>" + prodColor + "</span>";
-      html += "</p>";
-      html +=
-        '<p class="thisCartProdSize" style="margin: 0px; font-size: 10px">';
-      html += "Size:<span>" + prodSize + "</span>";
-      html += "</p>";
-      html += "</div>";
-      html += "</div>";
-      html += "</div>";
-      $("#skCheckOutItemsDetails").append(html);
-    });
+    setTimeout(function () {
+      $("#shoppingCartProds .col-12").each(function () {
+        var image = $(this).find(".thisCartProdImage").attr("src");
+        var prodName = $(this).find(".thisCartProdName").text();
+        var prodSku = $(this).find(".thisCartProdSku span").text();
+        var prodColor = $(this).find(".thisCartProdColor span").text();
+        var prodSize = $(this).find(".thisCartProdSize span").text();
+        var html = '<div class="row" style="padding: 0 15px">';
+        html +=
+          '<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">';
+        html += '<p class="prodHeading">Image</p>';
+        html +=
+          '<img class="thisCartProdImage" src="' +
+          image +
+          '" style="width: 100%"/>';
+        html += "</div>";
+        html += '<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-left">';
+        html += '<p class="prodHeading">Information</p>';
+        html += '<div style="line-height: 16px">';
+        html +=
+          '<p class="thisCartProdName" style="margin: 0px; font-size: 12px">' +
+          prodName;
+        html += "</p>";
+        html +=
+          '<p class="thisCartProdSku" style="margin: 0px; font-size: 10px">';
+        html += "SKU:<span>" + prodSku + "</span>";
+        html += "</p>";
+        html +=
+          '<p class="thisCartProdColor" style="margin: 0px; font-size: 10px">';
+        html += "Color:<span>" + prodColor + "</span>";
+        html += "</p>";
+        html +=
+          '<p class="thisCartProdSize" style="margin: 0px; font-size: 10px">';
+        html += "Size:<span>" + prodSize + "</span>";
+        html += "</p>";
+        html += "</div>";
+        html += "</div>";
+        html += "</div>";
+        $("#skCheckOutItemsDetails").append(html);
+      });
+    }, 1000);
 
     for (var i = 0; i < countryData.length; i++) {
       var html =
