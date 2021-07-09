@@ -1,42 +1,64 @@
-<h1 style="position: relative">All Reward Orders
-    <!--div style="position: absolute;width: 32%;right: 0;top: 36px;">
-        <select class="browser-default custom-select" style="float: left;display: inline-block;width: 45%;margin-right: 10px;" id="reportMonth" onchange="activateReportBtn()">
-          <option value="" selected>Select Month</option>
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="April">April</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
-        <button class="btn btn-primary" style="background-color: #00ACD7 !important;color:#fff;margin: 0;float: left;padding: 9px 20px;" onclick="generateReport()" disabled id="generateReportBtn">Generate Report</button>
-    </div-->
+<h1 style="position: relative">
+  All Reward Orders
+  <div style="position: absolute; width: 32%; right: 0; top: 36px">
+    <select
+      class="browser-default custom-select"
+      style="float: left; display: inline-block; width: 45%; margin-right: 10px"
+      id="reportMonth"
+      onchange="activateReportBtn()"
+    >
+      <option value="" selected>Select Month</option>
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+    <button
+      class="btn btn-primary"
+      style="
+        background-color: #00acd7 !important;
+        color: #fff;
+        margin: 0;
+        float: left;
+        padding: 9px 20px;
+      "
+      onclick="generateReport()"
+      disabled
+      id="generateReportBtn"
+    >
+      Generate Report
+    </button>
+  </div>
 </h1>
-        
-<hr>
-<div class="container" id="rewardOrderList" style="padding: 15px 20px;">
-    <div class="row">
-        <div class="col-12">
-            <div class="preloader-wrapper big active" style="display:block;margin:0px auto;">
-                <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
+<hr />
+<div class="container" id="rewardOrderList" style="padding: 15px 20px">
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="preloader-wrapper big active"
+        style="display: block; margin: 0px auto"
+      >
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
