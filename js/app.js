@@ -1362,8 +1362,9 @@ function checkOutModal() {
       .text("There is no product in Cart !!");
   } else {
     $("#checkOutModal").modal("show");
-    $("#skCheckOutItemsDetails").html("");
+
     setTimeout(function () {
+      $("#skCheckOutItemsDetails").html("");
       $("#shoppingCartProds .col-12").each(function () {
         var image = $(this).find(".thisCartProdImage").attr("src");
         var prodName = $(this).find(".thisCartProdName").text();
