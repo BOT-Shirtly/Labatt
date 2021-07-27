@@ -53,6 +53,7 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
   );
   if (
     localStorage.getItem("__SickKidsShopUser__") == undefined ||
+    localStorage.getItem("__SickKidsShopUser__") == null ||
     localStorage.getItem("__SickKidsShopUser__") == ""
   ) {
     $("#majorTeamEmail span").text("Login to view your Team Email.");
@@ -72,6 +73,7 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
       data: JSON.stringify({ currentUser: currUser }),
       contentType: "application/json",
       success: function (getSKRewardUserData) {
+        console.log(getSKRewardUserData);
         if (getSKRewardUserData == "No User") {
           $("#majorTeamEmail span").text("Login to view your Team Email.");
           $("#currUserRewardPin").html("");
@@ -79,6 +81,7 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
           localStorage.removeItem("__SickKidsShopUser__");
           $("#currUser").fadeOut().find("span").text("Loading..");
           $("#currUser1").fadeOut().find("span").text("Loading..");
+          $("#skSiteLoading").modal("hide");
         } else {
           $("#majorTeamEmail span").text(getSKRewardUserData.memail);
           $("#currUser").fadeIn().find("span").text(getSKRewardUserData.name);
@@ -182,7 +185,7 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
         if ($("#shoppingCartProds .col-12").length > 0) {
           $("#shoppingCartProds .col-12").each(function (index) {
             if (
-              prodType == $(this).find(".thisCartProdType span").text() &&
+              prodName == $(this).find(".thisCartProdName").text() &&
               prodSize == $(this).find(".thisCartProdSize span").text()
             ) {
               $("#errorMsg")
@@ -737,60 +740,86 @@ function checkEnteredRewarCred() {
             //$("#userCodeElligibleProd").fadeIn().find("span").text(getSKRewardUserData.rewardProd.join())
           }
 
-          var hoodieArr = [];
+          // HATS
+          var hatArr = [];
+          $("#shoppingCartProds .col-12").each(function () {
+            if ($(this).find(".thisCartProdType span").text() == "Hat") {
+              hatArr.push(parseInt($(this).find(".thisCartProdQty").val()));
+            }
+          });
+          var totalhatsInCart = hatArr.reduce(function (a, b) {
+            return a + b;
+          }, 0);
+
+          // Adult Hoodie
+          var adultHoodieArr = [];
           $("#shoppingCartProds .col-12").each(function () {
             if (
-              $(this).find(".thisCartProdType span").text() == "Youth_Hoodie" ||
               $(this).find(".thisCartProdType span").text() == "Adult_Hoodie"
             ) {
-              hoodieArr.push(parseInt($(this).find(".thisCartProdQty").val()));
+              adultHoodieArr.push(
+                parseInt($(this).find(".thisCartProdQty").val())
+              );
             }
           });
-          var totalhoodiesInCart = hoodieArr.reduce(function (a, b) {
+          var totalAdultHoodiesInCart = adultHoodieArr.reduce(function (a, b) {
             return a + b;
           }, 0);
 
-          var toqueArr = [];
+          // Youth Hoodie
+          var youthHoodieArr = [];
           $("#shoppingCartProds .col-12").each(function () {
-            if ($(this).find(".thisCartProdType span").text() == "Toque") {
-              toqueArr.push(parseInt($(this).find(".thisCartProdQty").val()));
+            if (
+              $(this).find(".thisCartProdType span").text() == "Youth_Hoodie"
+            ) {
+              youthHoodieArr.push(
+                parseInt($(this).find(".thisCartProdQty").val())
+              );
             }
           });
-          var totaltoquesInCart = toqueArr.reduce(function (a, b) {
+          var totalYouthHoodiesInCart = youthHoodieArr.reduce(function (a, b) {
             return a + b;
           }, 0);
 
-          var fannyArr = [];
+          // Youth T-Shirt
+          var youthTshirtArr = [];
           $("#shoppingCartProds .col-12").each(function () {
-            if ($(this).find(".thisCartProdType span").text() == "Fanny_Pack") {
-              fannyArr.push(parseInt($(this).find(".thisCartProdQty").val()));
+            if (
+              $(this).find(".thisCartProdType span").text() == "Youth_Tshirt"
+            ) {
+              youthTshirtArr.push(
+                parseInt($(this).find(".thisCartProdQty").val())
+              );
             }
           });
-          var totalfannyInCart = fannyArr.reduce(function (a, b) {
+          var totalyouthTshirtsInCart = youthTshirtArr.reduce(function (a, b) {
             return a + b;
           }, 0);
 
-          var speakerArr = [];
+          // Adult T-Shirt
+          var adultTshirtArr = [];
           $("#shoppingCartProds .col-12").each(function () {
-            if ($(this).find(".thisCartProdType span").text() == "Speaker") {
-              speakerArr.push(parseInt($(this).find(".thisCartProdQty").val()));
+            if (
+              $(this).find(".thisCartProdType span").text() == "Adult_Tshirt"
+            ) {
+              adultTshirtArr.push(
+                parseInt($(this).find(".thisCartProdQty").val())
+              );
             }
           });
-          var totalspeakerInCart = speakerArr.reduce(function (a, b) {
+          var totaladultTshirtsInCart = adultTshirtArr.reduce(function (a, b) {
             return a + b;
           }, 0);
 
           $("#shoppingCartProds .col-12").each(function () {
             currCartProdLine = $(this);
             thisProdType = $(this).find(".thisCartProdType span").text();
-            if (thisProdType == "Toque") {
+            if (thisProdType == "Hat") {
               for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
-                if (
-                  getSKRewardUserData.rewardProd[i].split(" ")[1] == "Toque"
-                ) {
-                  var allowedToques =
+                if (getSKRewardUserData.rewardProd[i].split(" ")[1] == "Hat") {
+                  var allowedHats =
                     getSKRewardUserData.rewardProd[i].split(" ")[0];
-                  if (totaltoquesInCart > allowedToques) {
+                  if (totalhatsInCart > allowedHats) {
                     $(this).addClass("errorProd");
                     $("#checkOutBtn").prop("disabled", true);
                   } else {
@@ -800,11 +829,11 @@ function checkEnteredRewarCred() {
                 } else {
                   if (i == getSKRewardUserData.rewardProd.length - 1) {
                     if (
-                      getSKRewardUserData.rewardProd[i].split(" ")[1] == "Toque"
+                      getSKRewardUserData.rewardProd[i].split(" ")[1] == "Hat"
                     ) {
                       var allowedToques =
                         getSKRewardUserData.rewardProd[i].split(" ")[0];
-                      if (totaltoquesInCart > allowedToques) {
+                      if (totalhatsInCart > allowedHats) {
                         $(this).addClass("errorProd");
                         $("#checkOutBtn").prop("disabled", true);
                       } else {
@@ -819,15 +848,15 @@ function checkEnteredRewarCred() {
                   }
                 }
               }
-            } else if (thisProdType == "Fanny_Pack") {
+            } else if (thisProdType == "Adult_Tshirt") {
               for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
                 if (
                   getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                  "Fanny_Pack"
+                  "Adult_Tshirt"
                 ) {
-                  var allowedFanny =
+                  var allowedAdultTshirts =
                     getSKRewardUserData.rewardProd[i].split(" ")[0];
-                  if (totalfannyInCart > allowedFanny) {
+                  if (totaladultTshirtsInCart > allowedAdultTshirts) {
                     $(this).addClass("errorProd");
                     $("#checkOutBtn").prop("disabled", true);
                   } else {
@@ -838,11 +867,11 @@ function checkEnteredRewarCred() {
                   if (i == getSKRewardUserData.rewardProd.length - 1) {
                     if (
                       getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                      "Fanny_Pack"
+                      "Adult_Tshirt"
                     ) {
-                      var allowedFanny =
+                      var allowedAdultTshirts =
                         getSKRewardUserData.rewardProd[i].split(" ")[0];
-                      if (totalfannyInCart > allowedFanny) {
+                      if (totaladultTshirtsInCart > allowedAdultTshirts) {
                         $(this).addClass("errorProd");
                         $("#checkOutBtn").prop("disabled", true);
                       } else {
@@ -857,14 +886,15 @@ function checkEnteredRewarCred() {
                   }
                 }
               }
-            } else if (thisProdType == "Speaker") {
+            } else if (thisProdType == "Youth_Tshirt") {
               for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
                 if (
-                  getSKRewardUserData.rewardProd[i].split(" ")[1] == "Speaker"
+                  getSKRewardUserData.rewardProd[i].split(" ")[1] ==
+                  "Youth_Tshirt"
                 ) {
-                  var allowedSpeaker =
+                  var allowedYouthTshirts =
                     getSKRewardUserData.rewardProd[i].split(" ")[0];
-                  if (totalspeakerInCart > allowedSpeaker) {
+                  if (totalyouthTshirtsInCart > allowedYouthTshirts) {
                     $(this).addClass("errorProd");
                     $("#checkOutBtn").prop("disabled", true);
                   } else {
@@ -875,11 +905,11 @@ function checkEnteredRewarCred() {
                   if (i == getSKRewardUserData.rewardProd.length - 1) {
                     if (
                       getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                      "Speaker"
+                      "Youth_Tshirt"
                     ) {
-                      var allowedSpeaker =
+                      var allowedYouthTshirts =
                         getSKRewardUserData.rewardProd[i].split(" ")[0];
-                      if (totalspeakerInCart > allowedSpeaker) {
+                      if (totalyouthTshirtsInCart > allowedYouthTshirts) {
                         $(this).addClass("errorProd");
                         $("#checkOutBtn").prop("disabled", true);
                       } else {
@@ -894,17 +924,15 @@ function checkEnteredRewarCred() {
                   }
                 }
               }
-            } else if (
-              thisProdType == "Adult_Hoodie" ||
-              thisProdType == "Youth_Hoodie"
-            ) {
+            } else if (thisProdType == "Adult_Hoodie") {
               for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
                 if (
-                  getSKRewardUserData.rewardProd[i].split(" ")[1] == "Hoodie"
+                  getSKRewardUserData.rewardProd[i].split(" ")[1] ==
+                  "Adult_Hoodie"
                 ) {
-                  var allowedHoodies =
+                  var allowedAdultHoodies =
                     getSKRewardUserData.rewardProd[i].split(" ")[0];
-                  if (totalhoodiesInCart > allowedHoodies) {
+                  if (totalAdultHoodiesInCart > allowedAdultHoodies) {
                     $(this).addClass("errorProd");
                     $("#checkOutBtn").prop("disabled", true);
                   } else {
@@ -915,11 +943,49 @@ function checkEnteredRewarCred() {
                   if (i == getSKRewardUserData.rewardProd.length - 1) {
                     if (
                       getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                      "Hoodie"
+                      "Adult_Hoodie"
                     ) {
-                      var allowedHoodies =
+                      var allowedAdultHoodies =
                         getSKRewardUserData.rewardProd[i].split(" ")[0];
-                      if (totalhoodiesInCart > allowedHoodies) {
+                      if (totalAdultHoodiesInCart > allowedAdultHoodies) {
+                        $(this).addClass("errorProd");
+                        $("#checkOutBtn").prop("disabled", true);
+                      } else {
+                        $(this).removeClass("errorProd");
+                      }
+                      break;
+                    } else {
+                      $(this).addClass("errorProd");
+                      $("#checkOutBtn").prop("disabled", true);
+                      break;
+                    }
+                  }
+                }
+              }
+            } else if (thisProdType == "Youth_Hoodie") {
+              for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
+                if (
+                  getSKRewardUserData.rewardProd[i].split(" ")[1] ==
+                  "Youth_Hoodie"
+                ) {
+                  var allowedYouthHoodies =
+                    getSKRewardUserData.rewardProd[i].split(" ")[0];
+                  if (totalYouthHoodiesInCart > allowedYouthHoodies) {
+                    $(this).addClass("errorProd");
+                    $("#checkOutBtn").prop("disabled", true);
+                  } else {
+                    $(this).removeClass("errorProd");
+                  }
+                  break;
+                } else {
+                  if (i == getSKRewardUserData.rewardProd.length - 1) {
+                    if (
+                      getSKRewardUserData.rewardProd[i].split(" ")[1] ==
+                      "Youth_Hoodie"
+                    ) {
+                      var allowedYouthHoodies =
+                        getSKRewardUserData.rewardProd[i].split(" ")[0];
+                      if (totalYouthHoodiesInCart > allowedYouthHoodies) {
                         $(this).addClass("errorProd");
                         $("#checkOutBtn").prop("disabled", true);
                       } else {
@@ -1795,7 +1861,7 @@ function sendtoLynx(transactionId, cardType, paymentMethod) {
       var today = curMonth + " " + dayOfMonth + ", " + curYear;
 
       var x = Math.floor(Math.random() * 10000000 + 1);
-      PONumber = "BOT-GetLoud-" + x;
+      PONumber = "BOT-GetLoud2021-" + x;
       json = {
         AddXml: {
           OrderString: {

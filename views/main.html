@@ -1,98 +1,220 @@
 <!-- Navbar -->
-<div class="container-fluid animated fadeIn " style="padding: 0px;">
-    <section style="color: #000;width: 100%;" class="mainPageBanner">
-        <img src="img/banner1.png" style="width:100%;">
-    </section>
-    <section class="moreInfo" style="color: #000;font-family: 'Montserrat Bold',sans-serif;">
-        <h1>SickKids GetLoud Fundraising Rewards</h1>
-        <h4 class="text-center" style="color: #00263e;">Featured Products</h4>
-        <hr style="margin-bottom: 20px;">
-        <div class="container">
-            <div class="row" id="productList">
-                <div class="preloader-wrapper big active" style="display:block;margin:0px auto;"> <div class="spinner-layer spinner-blue-only"> <div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div> </div><div class="circle-clipper right"><div class="circle"></div></div></div></div>
-            </div>
+<div class="container-fluid animated fadeIn" style="padding: 0px">
+  <section style="color: #000; width: 100%" class="mainPageBanner">
+    <img src="img/banner1.png" style="width: 100%" />
+  </section>
+  <section
+    class="moreInfo"
+    style="color: #000; font-family: 'Montserrat Bold', sans-serif"
+  >
+    <h1>SickKids GetLoud Fundraising Rewards</h1>
+    <h4 class="text-center" style="color: #00263e">Featured Products</h4>
+    <hr style="margin-bottom: 20px" />
+    <div class="container">
+      <div class="row" id="productList">
+        <div
+          class="preloader-wrapper big active"
+          style="display: block; margin: 0px auto"
+        >
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left"><div class="circle"></div></div>
+            <div class="gap-patch"><div class="circle"></div></div>
+            <div class="circle-clipper right"><div class="circle"></div></div>
+          </div>
         </div>
-        
-    </section>
-    <section style="color: #000;width: 100%;position: relative;" class="mainPageBottomBanner">
-        <img src="img/banner2.png" style="width:100%;">
-        <div class="mainPageBottomText">
-            <h4>WHY FUNDRAISE FOR GETLOUD?</h4>
-            <p>That’s easy. You’re fundraising for SickKids Foundation. GetLoud fundraising goes toward unleashing the full potential of SickKids including smashing the limits of an old building, the limits on generating new knowledge and translating it to treatment, and the limits on delivering seamless health care to every child.
-            We’re building a new SickKids, and it’s going to take all of us. So all of us need to GetLoud.
-            </p>
-        </div>
-    </section>
-    <section style="color: #fff;width: 100%;position: relative;padding: 30px;background-color: #010101;display: none;" id="mobileAbout">
-        <div>
-            <h4>WHY FUNDRAISE FOR GETLOUD?</h4>
-            <p style="margin-bottom: 0px">That’s easy. You’re fundraising for SickKids Foundation. GetLoud fundraising goes toward unleashing the full potential of SickKids including smashing the limits of an old building, the limits on generating new knowledge and translating it to treatment, and the limits on delivering seamless health care to every child.
-            We’re building a new SickKids, and it’s going to take all of us. So all of us need to GetLoud.
-            </p>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
+  <section
+    style="color: #000; width: 100%; position: relative"
+    class="mainPageBottomBanner"
+  >
+    <img src="img/banner2.png" style="width: 100%" />
+    <div class="mainPageBottomText">
+      <h4>WHY FUNDRAISE FOR GETLOUD?</h4>
+      <p>
+        That’s easy. You’re fundraising for SickKids Foundation. GetLoud
+        fundraising goes toward unleashing the full potential of SickKids
+        including smashing the limits of an old building, the limits on
+        generating new knowledge and translating it to treatment, and the limits
+        on delivering seamless health care to every child. We’re building a new
+        SickKids, and it’s going to take all of us. So all of us need to
+        GetLoud.
+      </p>
+    </div>
+  </section>
+  <section
+    style="
+      color: #fff;
+      width: 100%;
+      position: relative;
+      padding: 30px;
+      background-color: #010101;
+      display: none;
+    "
+    id="mobileAbout"
+  >
+    <div>
+      <h4>WHY FUNDRAISE FOR GETLOUD?</h4>
+      <p style="margin-bottom: 0px">
+        That’s easy. You’re fundraising for SickKids Foundation. GetLoud
+        fundraising goes toward unleashing the full potential of SickKids
+        including smashing the limits of an old building, the limits on
+        generating new knowledge and translating it to treatment, and the limits
+        on delivering seamless health care to every child. We’re building a new
+        SickKids, and it’s going to take all of us. So all of us need to
+        GetLoud.
+      </p>
+    </div>
+  </section>
 </div>
 
-
-<div class="modal fade" id="productInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999;">
-  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+<div
+  class="modal fade"
+  id="productInfo"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  style="z-index: 99999"
+>
+  <div
+    class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+    role="document"
+  >
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Product Information
-            <span id="prodInfoLoading" style="display: none;font-size: 16px;color: #777;">-
-                <div class="spinner-border" role="status" style="font-size: 7px;width: 20px;margin: 0px 10px;height: 20px;">
-                    
-                </div>Loading...
-            </span>
-          </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Product Information
+          <span
+            id="prodInfoLoading"
+            style="display: none; font-size: 16px; color: #777"
+            >-
+            <div
+              class="spinner-border"
+              role="status"
+              style="
+                font-size: 7px;
+                width: 20px;
+                margin: 0px 10px;
+                height: 20px;
+              "
+            ></div>
+            Loading...
+          </span>
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="row">
-            <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5" style="position: relative;">
-                <img src="" id="thisProdImg" style="width:100%;">
-                <img src="" id="thisProdArtImg" style="width:100%;display: none;">
-                <img src="" id="thisProdBackArtImg" style="width:100%;display: none;">
-                <div class="row" style="padding: 0px 15px;margin-bottom: 15px;" id="differentSides">
+          <div
+            class="col-sm-12 col-md-5 col-lg-5 col-xl-5"
+            style="position: relative"
+          >
+            <img src="" id="thisProdImg" style="width: 100%" />
+            <img
+              src=""
+              id="thisProdArtImg"
+              style="width: 100%; display: none"
+            />
+            <img
+              src=""
+              id="thisProdBackArtImg"
+              style="width: 100%; display: none"
+            />
+            <div
+              class="row"
+              style="padding: 0px 15px; margin-bottom: 15px"
+              id="differentSides"
+            ></div>
+            <p id="thisProdSku">
+              SKU: <span style="color: #a1a1a1; font-size: 14px"></span>
+            </p>
+            <p id="thisProdType">Type: <span></span></p>
+            <p id="thisProdPrice">Price: $<span></span></p>
+          </div>
+          <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7">
+            <h4 id="thisProdName" style="font-size: 18px"></h4>
+            <p
+              style="margin: 0px; color: #777; font-size: 10px"
+              id="thisProdId"
+            ></p>
+            <hr />
+            <div
+              id="thisProdDesc"
+              style="font-size: 14px; line-height: 18px"
+            ></div>
+
+            <hr />
+            <div id="thisProdColor" style="margin-bottom: 16px; display: none">
+              <p style="margin: 10px 0px">Select Color:</p>
+              <div
+                class="preloader-wrapper big active"
+                style="display: block; margin: 0px auto"
+              >
+                <div class="spinner-layer spinner-blue-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch"><div class="circle"></div></div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
                 </div>
-                <p id="thisProdSku">SKU: <span style="color: #a1a1a1;font-size: 14px;"></span></p>
-                <p id="thisProdType">Type: <span></span></p>
-                <p id="thisProdPrice">Price: $<span></span></p>
-            </div>    
-            <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7">
-                <h4 id="thisProdName" style="font-size: 18px;"></h4>
-                <p style="margin: 0px;color: #777;font-size: 10px;" id="thisProdId"></p>
-                <hr>
-                <div id="thisProdDesc" style="font-size: 14px;    line-height: 18px;"></div>
-                
-                <hr>
-                <div id="thisProdColor" style="margin-bottom: 16px;display: none;">
-                    <p style="margin: 0px;">Select Color:</p>
-                    <div class="preloader-wrapper big active" style="display:block;margin:0px auto;"> <div class="spinner-layer spinner-blue-only"> <div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div> </div><div class="circle-clipper right"><div class="circle"></div></div></div></div>
-                </div>
-                <script>
-                    $(document).ready(function(){
-                         $("#thisProdColor .colorBox").click(function(index){
-                             console.log(index) 
-                         })
-                    });
-                </script>
-                <div class="row">
-                    <div class="col-12">
-                        <p style="margin: 0px;">Select Size: <span style="font-size: 12px;color: #777;display: none;" id="sizeLoading">Loading..</span></p> 
-                        <select id="thisProdSize" style="width: 100%;margin-bottom: 16px;" ></select>
-                    </div>
-                </div>
-                
-                <p style="margin: 0px;">Quantity:</p>
-                <input type="number" id="thisProdQty" style="width: 100%;height: 23px;" min="1">
+              </div>
             </div>
+            <script>
+              $(document).ready(function () {
+                $("#thisProdColor .colorBox").click(function (index) {
+                  console.log(index);
+                });
+              });
+            </script>
+            <div class="row">
+              <div class="col-12">
+                <p style="margin: 10px 0px">
+                  Select Size:
+                  <span
+                    style="font-size: 12px; color: #777; display: none"
+                    id="sizeLoading"
+                    >Loading..</span
+                  >
+                </p>
+                <select
+                  id="thisProdSize"
+                  style="width: 100%; margin-bottom: 16px"
+                ></select>
+              </div>
+            </div>
+
+            <p style="margin: 10px 0px">Quantity:</p>
+            <input
+              type="number"
+              id="thisProdQty"
+              style="width: 100%; height: 23px"
+              min="1"
+            />
+          </div>
         </div>
       </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-danger" ng-click="addThisProdtoCart()" disabled id="addToCartBtn" style="background-color: #00ACD7 !important;">ADD TO CART</button>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-danger"
+          ng-click="addThisProdtoCart()"
+          disabled
+          id="addToCartBtn"
+          style="background-color: #00acd7 !important"
+        >
+          ADD TO CART
+        </button>
       </div>
     </div>
   </div>

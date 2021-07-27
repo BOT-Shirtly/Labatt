@@ -629,19 +629,19 @@ function getThisRewardUserData(e) {
             sickKidsUserData.orders[i].orderNumber +
             "</span></div>";
           html +=
-            '<div class="col-3 databaseId" style="margin: 9px 0px;font-size: 14px;color: #777;">Database Id: <span style="font-size: 14px;color: #000;">' +
+            '<div class="col-4 databaseId" style="margin: 9px 0px;font-size: 14px;color: #777;">Database Id: <span style="font-size: 14px;color: #000;">' +
             sickKidsUserData._id +
             "</span></div>";
 
           html +=
             '<div class="col-2 text-center"><button class="btn btn-link" style="margin: 0;padding: 5px 10px;" data-toggle="modal" data-target="#orderInfo" onclick="getOrderInfo(this)"><i class="fas fa-info-circle" style="margin: 0;font-size: 20px;"></i></button></div>';
-          if (sickKidsUserData.orders[i].shippingInfo == "notSent") {
+          /*if (sickKidsUserData.orders[i].shippingInfo == "notSent") {
             html +=
               '<div class="col-1" data-toggle="tooltip" title="In-Production"><i class="fas fa-hourglass-half" style="font-size: 22px;margin: 5px;"></i></div>';
           } else if (sickKidsUserData.orders[i].shippingInfo == "sent") {
             html +=
               '<div class="col-1" data-toggle="tooltip" title="Shipped"><i class="fas fa-shipping-fast" style="font-size: 22px;margin: 5px;"></i></div>';
-          }
+          }*/
           html += "</div></div>";
           html += "<hr>";
           $("#thisRewardUserOrderlist").append(html);
@@ -799,8 +799,8 @@ function getOrderInfo(e) {
           html += "<td>In-Production</td>";
           html += "<td>- -</td>";
           html += "<td>- -</td>";
-          html +=
-            '<td><button class="btn btn-link" disabled style="padding:0px;margin:0px;">Notify</button></td>';
+          /*html +=
+            '<td><button class="btn btn-link" disabled style="padding:0px;margin:0px;">Notify</button></td>';*/
 
           $("#trackingStatus").append(html);
         } else {
@@ -811,8 +811,8 @@ function getOrderInfo(e) {
           html += "<td>New</td>";
           html += "<td>- -</td>";
           html += "<td>- -</td>";
-          html +=
-            '<td><button class="btn btn-link" disabled style="padding:0px;margin:0px;">Notify</button></td>';
+          /*html +=
+            '<td><button class="btn btn-link" disabled style="padding:0px;margin:0px;">Notify</button></td>';*/
 
           $("#trackingStatus").append(html);
         }
@@ -825,8 +825,8 @@ function getOrderInfo(e) {
         html += "<td>" + shippingInfo.shipDate + "</td>";
         html +=
           '<td class="trackNumb">' + shippingInfo.trackingNumber + "</td>";
-        html +=
-          '<td><button class="btn btn-link" style="padding:0px;margin:0px;" onclick="sendCustomerTrackingNumber(this)">Notify</button></td>';
+        //html +=
+        //  '<td><button class="btn btn-link" style="padding:0px;margin:0px;" onclick="sendCustomerTrackingNumber(this)">Notify</button></td>';
 
         $("#trackingStatus").append(html);
       }
