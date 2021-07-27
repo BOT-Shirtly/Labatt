@@ -1,35 +1,91 @@
-<h1 style="position: relative;">Add Reward Users
-    <label for="skRewardCustomer" class="custom-file-upload" style="background-color: #00ACD7;color:#fff;border: 1px solid #00ACD7;display: inline-block;padding: 7px 12px;cursor: pointer;position: absolute;right: 30px;top: 40px;font-size: 14px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);border-radius: .125rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;">
-        <i class="fas fa-file-upload"></i> Upload Excel File
-    </label>
-    <input id="skRewardCustomer" type="file" style="display:none;" accept=".csv,.xls,.xlsx">
-    <script>
-            $('#skRewardCustomer').change(function(ev) {
-                renderCSVfile(ev);
-            });
-        </script>
+<h1 style="position: relative">
+  Add Reward Users
+  <label
+    for="skRewardCustomer"
+    class="custom-file-upload"
+    style="
+      background-color: #00acd7;
+      color: #fff;
+      border: 1px solid #00acd7;
+      display: inline-block;
+      padding: 7px 12px;
+      cursor: pointer;
+      position: absolute;
+      left: 30px;
+      top: 40px;
+      font-size: 14px;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      border-radius: 0.125rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+        -webkit-box-shadow 0.15s ease-in-out;
+    "
+  >
+    <i class="fas fa-file-upload"></i> Upload Excel File
+  </label>
+  <input
+    id="skRewardCustomer"
+    type="file"
+    style="display: none"
+    accept=".csv,.xls,.xlsx"
+  />
+  <script>
+    $("#skRewardCustomer").change(function (ev) {
+      renderCSVfile(ev);
+    });
+  </script>
+  <button
+    id="rewardCustomerUpload"
+    class="btn btn-primary"
+    style="
+      background-color: #00acd7 !important;
+      color: #fff;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 0;
+      float: right;
+      position: absolute;
+      right: 30px;
+      top: 39px;
+    "
+    disabled
+    onclick="saveRewardUser()"
+  >
+    <i class="fas fa-upload"></i> Submit Users
+  </button>
 </h1>
 
-<hr style="margin-bottom: 0px;">
-<div class="container" style="padding:0px;">
-    <div class="row" style="margin: 0px;padding: 8px 0px;border-bottom: 1px solid #ccc;font-size: 12px;background-color: #000;color: #fff;">
-        <div class="col-1">C_FName</div>
-        <div class="col-1">C_LName</div>
-        <div class="col-1">C_MEmail</div>
-        <div class="col-1">C_Phone</div>
-        <div class="col-1">C_Address1</div>
-        <div class="col-1">C_City</div> 
-        <div class="col-1">C_State</div> 
-        <div class="col-1">C_Zip</div> 
-        <div class="col-1">C_Country</div>
-        <div class="col-1">C_Points</div>
-        <div class="col-1">C_Products</div>
-    </div>
-    <div id="feedData" style="height: 540px;overflow: hidden;overflow-y: auto;">
-    </div>
-    <ul id="rewardProd" style="display: none;"></ul>
-    <hr style="margin-top: 0;">
-    <div style="position: relative;padding: 25px;">
-        <button id="rewardCustomerUpload" class="btn btn-primary" style="background-color: #00ACD7 !important;color:#fff;padding: 7px 12px;cursor: pointer;font-size: 14px;margin: 0px;position: absolute;right: 30px;top: 0;" disabled onclick="saveRewardUser()"><i class="fas fa-upload"></i> Submit Users</button>
-    </div>
+<hr style="margin-bottom: 0px" />
+<div class="container" style="padding: 0px">
+  <div
+    class="row"
+    style="
+      margin: 0px;
+      padding: 8px 0px;
+      border-bottom: 1px solid #ccc;
+      font-size: 12px;
+      background-color: #000;
+      color: #fff;
+    "
+  >
+    <div class="col-1">C_FName</div>
+    <div class="col-1">C_LName</div>
+    <div class="col-1">C_MEmail</div>
+    <div class="col-1">C_Phone</div>
+    <div class="col-1">C_Address1</div>
+    <div class="col-1">C_City</div>
+    <div class="col-1">C_State</div>
+    <div class="col-1">C_Zip</div>
+    <div class="col-1">C_Country</div>
+    <div class="col-1">C_Points</div>
+    <div class="col-1">C_Products</div>
+  </div>
+  <div
+    id="feedData"
+    style="height: 540px; overflow: hidden; overflow-y: auto"
+  ></div>
+  <ul id="rewardProd" style="display: none"></ul>
+  <hr style="margin-top: 0" />
 </div>

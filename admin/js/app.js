@@ -34,6 +34,7 @@ routerApp.config(function ($stateProvider, $urlRouterProvider) {
     .state("main.rewardUsers", {
       url: "/rewardUsers",
       templateUrl: "./views/rewardUsers.html",
+      controller: "addRewardUsersController",
     })
     .state("main.rewardOrders", {
       url: "/rewardOrders",
@@ -97,7 +98,14 @@ routerApp.controller("loginController", function ($scope, $state, $timeout) {
   };
 });
 routerApp.controller("mainController", function ($scope, $state, $timeout) {
-  $state.go("main.allOrders");
+  setTimeout(function () {
+    $("#menuBar ul li").each(function () {
+      $(this).removeClass("menuSelected");
+    });
+    $("#selectThis").addClass("menuSelected");
+  }, 500);
+
+  $state.go("main.allRewardOrders");
   var scroll_pos = 0;
   $("html, body").animate(
     {
@@ -106,12 +114,12 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
     "2000"
   );
 
-  $scope.goToUsers = function () {
+  /*$scope.goToUsers = function () {
     $state.go("main.users");
   };
   $scope.goToAllOrders = function () {
     $state.go("main.allOrders");
-  };
+  };*/
   $scope.goToRewardUsers = function () {
     $state.go("main.rewardUsers");
   };
@@ -186,7 +194,7 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
     },
   });
 });
-routerApp.controller(
+/*routerApp.controller(
   "allOrdersController",
   function ($scope, $state, $timeout) {
     var scroll_pos = 0;
@@ -263,86 +271,9 @@ routerApp.controller(
       },
     });
   }
-);
-routerApp.controller(
-  "allRewardOrdersController",
-  function ($scope, $state, $timeout) {
-    var scroll_pos = 0;
-    $("html, body").animate(
-      {
-        scrollTop: scroll_pos,
-      },
-      "2000"
-    );
-    /*$("#menuBar ul li").each(function(){
-        if($(this).text().trim() == "All Orders"){
-            $(this).addClass("menuSelected")
-        }else{
-            $(this).removeClass("menuSelected")
-        }
-    })*/
+);*/
 
-    $.ajax({
-      url: ngrokUrl + "shopUserData",
-      type: "POST",
-      data: JSON.stringify({
-        currentUser: "SickKids",
-      }),
-      contentType: "application/json",
-      success: function (shopData) {
-        $("#rewardOrderList").html("");
-        if (
-          shopData[1].orderList.length == 0 ||
-          shopData[1].orderList.length == null ||
-          shopData[1].orderList.length == undefined
-        ) {
-          var html =
-            '<div class="row"><div class="col-12 databaseId"><h5 class="text-center">No Orders Yet!!</h5></div>';
-          html += "</div>";
-          $("#rewardOrderList").append(html);
-        } else {
-          for (var j = shopData[1].orderList.length - 1; j >= 0; j--) {
-            var html = '<div class="row">';
-            html +=
-              '<div class="col-3 orderDate" style="margin: 5px 0px;font-size: 14px;color: #777;">Date: <span style="font-size: 18px;color: #000;">' +
-              shopData[1].orderList[j].orderDate +
-              "</span></div>";
-            html +=
-              '<div class="col-4 poNumber" style="margin: 5px 0px;font-size: 14px;color: #777;">PO: <span style="font-size: 18px;color: #000;">' +
-              shopData[1].orderList[j].orderNumber +
-              "</span></div>";
-            html +=
-              '<div class="col-4 databaseId" style="margin: 5px 0px;font-size: 14px;color: #777;">Database Id: <span style="font-size: 18px;color: #000;">' +
-              shopData[1]._id +
-              "</span></div>";
-            html +=
-              '<div class="cardType" style="display:none;">' +
-              shopData[1].orderList[j].cardType +
-              "</div>";
-            html +=
-              '<div class="paymentCode" style="display:none;">' +
-              shopData[1].orderList[j].paymentCode +
-              "</div>";
-            html +=
-              '<div class="paymentMethod" style="display:none;">' +
-              shopData[1].orderList[j].paymentMethod +
-              "</div>";
-            html += '<div class="col-1">';
-            html +=
-              '<button class="btn btn-block" style="margin: 0;padding: 5px;background-color: #00ACD7 !important;color: #fff;" data-toggle="modal" data-target="#orderInfo" onclick="getOrderInfo(this)">Info</button>';
-            html += "</div>";
-            html += "</div><hr>";
-            $("#rewardOrderList").append(html);
-            $(function () {
-              $('[data-toggle="tooltip"]').tooltip();
-            });
-          }
-        }
-      },
-    });
-  }
-);
-routerApp.controller("usersController", function ($scope, $state, $timeout) {
+/*routerApp.controller("usersController", function ($scope, $state, $timeout) {
   var scroll_pos = 0;
   $("html, body").animate(
     {
@@ -403,7 +334,85 @@ routerApp.controller("usersController", function ($scope, $state, $timeout) {
       }
     },
   });
-});
+});*/
+routerApp.controller(
+  "allRewardOrdersController",
+  function ($scope, $state, $timeout) {
+    var scroll_pos = 0;
+    $("html, body").animate(
+      {
+        scrollTop: scroll_pos,
+      },
+      "2000"
+    );
+    /*$("#menuBar ul li").each(function(){
+        if($(this).text().trim() == "All Orders"){
+            $(this).addClass("menuSelected")
+        }else{
+            $(this).removeClass("menuSelected")
+        }
+    })*/
+
+    $.ajax({
+      url: ngrokUrl + "shopUserData",
+      type: "POST",
+      data: JSON.stringify({
+        currentUser: "SickKids",
+      }),
+      contentType: "application/json",
+      success: function (shopData) {
+        $("#rewardOrderList").html("");
+        if (
+          shopData[2].orderList.length == 0 ||
+          shopData[2].orderList.length == null ||
+          shopData[2].orderList.length == undefined
+        ) {
+          var html =
+            '<div class="row"><div class="col-12 databaseId"><h5 class="text-center">No Orders Yet!!</h5></div>';
+          html += "</div>";
+          $("#rewardOrderList").append(html);
+        } else {
+          for (var j = shopData[2].orderList.length - 1; j >= 0; j--) {
+            var html = '<div class="row">';
+            html +=
+              '<div class="col-3 orderDate" style="margin: 5px 0px;font-size: 14px;color: #777;">Date: <span style="font-size: 18px;color: #000;">' +
+              shopData[2].orderList[j].orderDate +
+              "</span></div>";
+            html +=
+              '<div class="col-4 poNumber" style="margin: 5px 0px;font-size: 14px;color: #777;">PO: <span style="font-size: 18px;color: #000;">' +
+              shopData[2].orderList[j].orderNumber +
+              "</span></div>";
+            html +=
+              '<div class="col-4 databaseId" style="margin: 5px 0px;font-size: 14px;color: #777;">Database Id: <span style="font-size: 18px;color: #000;">' +
+              shopData[2]._id +
+              "</span></div>";
+            html +=
+              '<div class="cardType" style="display:none;">' +
+              shopData[2].orderList[j].cardType +
+              "</div>";
+            html +=
+              '<div class="paymentCode" style="display:none;">' +
+              shopData[2].orderList[j].paymentCode +
+              "</div>";
+            html +=
+              '<div class="paymentMethod" style="display:none;">' +
+              shopData[2].orderList[j].paymentMethod +
+              "</div>";
+            html += '<div class="col-1">';
+            html +=
+              '<button class="btn btn-block" style="margin: 0;padding: 5px;background-color: #00ACD7 !important;color: #fff;" data-toggle="modal" data-target="#orderInfo" onclick="getOrderInfo(this)">Info</button>';
+            html += "</div>";
+            html += "</div><hr>";
+            $("#rewardOrderList").append(html);
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip();
+            });
+          }
+        }
+      },
+    });
+  }
+);
 routerApp.controller("rewardsController", function ($scope, $state, $timeout) {
   var scroll_pos = 0;
   $("html, body").animate(
@@ -428,13 +437,13 @@ routerApp.controller("rewardsController", function ($scope, $state, $timeout) {
       $("#rewardUsersList").html("");
       if (rewardCustomerData.length == 0) {
         var html =
-          '<div class="row"><div class="col-12 databaseId"><h5 class="text-center">No Users Yet!!</h5></div>';
+          '<div class="row"><div class="col-12 databaseId"><h5 class="text-center" style="margin-top:10px;display:block;">No Users Yet!!</h5></div>';
         html += "</div>";
         $("#rewardUsersList").append(html);
       } else if (rewardCustomerData.length == 1) {
         if (rewardCustomerData[0] == "system.indexes") {
           var html =
-            '<div class="row" style="margin:0px;"><div class="col-12 databaseId"><h5 class="text-center" style="margin: 15px;">No Users Yet!!</h5></div>';
+            '<div class="row" style="margin:0px;"><div class="col-12 databaseId"><h5 class="text-center" style="margin-top:10px;display:block;">No Users Yet!!</h5></div>';
           html += "</div>";
           $("#rewardUsersList").append(html);
         } else {
@@ -492,6 +501,18 @@ routerApp.controller("rewardsController", function ($scope, $state, $timeout) {
     },
   });
 });
+routerApp.controller(
+  "addRewardUsersController",
+  function ($scope, $state, $timeout) {
+    var scroll_pos = 0;
+    $("html, body").animate(
+      {
+        scrollTop: scroll_pos,
+      },
+      "2000"
+    );
+  }
+);
 
 function getThisUserData(e) {
   $("#thisUserInvoices").prop("disabled", false);
@@ -573,7 +594,6 @@ function getThisRewardUserData(e) {
     }),
     contentType: "application/json",
     success: function (sickKidsUserData) {
-      console.log(sickKidsUserData);
       $("#rewardUsername span").text(sickKidsUserData.email);
       $("#rewardPassword span").text(sickKidsUserData.password);
       for (var i = 0; i < sickKidsUserData.rewardProd.length; i++) {
@@ -922,6 +942,7 @@ function deleteThisOrder(e) {
 }
 
 function deleteUser(e) {
+  $(e).text("Deleting...").prop("disabled", true);
   var dataId = $(e).attr("databaseid");
   $.ajax({
     url: ngrokUrl + "deleteSickKidsRewardsCustomer",
@@ -929,7 +950,15 @@ function deleteUser(e) {
     data: JSON.stringify({ key: dataId }),
     contentType: "application/json",
     success: function (data) {
-      console.log(data);
+      $(e).text("Delete").prop("disabled", false);
+      $("#successMsg")
+        .modal("show")
+        .find(".modal-body p")
+        .text("Reward Customer Deleted !!");
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 1000);
     },
   });
 }
@@ -1729,6 +1758,12 @@ function saveRewardUser() {
         var paswword = Math.floor(Math.random() * 10000000 + 1);
         userPass = "SKGL@" + paswword + "-VS";
 
+        const genRanHex = (size) =>
+          [...Array(size)]
+            .map(() => Math.floor(Math.random() * 16).toString(16))
+            .join("");
+        userToken = genRanHex(24);
+
         currUser = userThis.find(".custEmail span").text();
         currMajorUser = userThis.find(".custEmail span").text();
         currUserName = userThis.find(".custName span").text();
@@ -1749,10 +1784,7 @@ function saveRewardUser() {
         for (var i = 0; i < currRewardProd.length; i++) {
           var html =
             "<li><b>" +
-            currRewardProd[i]
-              .replace(/_/g, " ")
-              .replace("Speaker", "Wireless Speaker")
-              .toUpperCase() +
+            currRewardProd[i].replace(/_/g, " ").toUpperCase() +
             "</b></li>";
           $("#rewardProd").append(html);
         }
@@ -1766,6 +1798,7 @@ function saveRewardUser() {
           code: randomCode,
           password: userPass,
           amount: currUserPoints,
+          userToken: userToken,
         };
         $.ajax({
           url: ngrokUrl + "notifySickKidsCustomerForRewards",
@@ -1774,7 +1807,6 @@ function saveRewardUser() {
           data: JSON.stringify(mailData),
           contentType: "application/json",
           success: function (notifySickKidsCustomerForRewards) {
-            console.log(notifySickKidsCustomerForRewards);
             var storeData = {
               email: currUser,
               memail: currMajorUser,
@@ -1788,6 +1820,7 @@ function saveRewardUser() {
               emailResponse: notifySickKidsCustomerForRewards,
               shipInfo: currUserShippingInfo,
               orders: [],
+              userToken: userToken,
             };
             $.ajax({
               url: ngrokUrl + "addSickKidsRewardCustomer",
@@ -1813,7 +1846,8 @@ function saveRewardUser() {
   }, 1000);
 }
 
-function sendRewardEmail() {
+function sendRewardEmail(e) {
+  $(e).text("Sending...").prop("disabled", true);
   var userName = $("#selectedRewardUser").text();
 
   var rewardProd = [];
@@ -1831,7 +1865,7 @@ function sendRewardEmail() {
       var mailData = {
         email: sickKidsUserData.email,
         name: sickKidsUserData.name,
-        html: rewardProd.join(", "),
+        html: $("#rewardProd").html(),
         code: sickKidsUserData.code,
         password: sickKidsUserData.password,
         amount: sickKidsUserData.amount,
@@ -1844,7 +1878,7 @@ function sendRewardEmail() {
         data: JSON.stringify(mailData),
         contentType: "application/json",
         success: function (notifySickKidsCustomerForRewards) {
-          console.log(notifySickKidsCustomerForRewards);
+          $(e).text("Send Reward Email").prop("disabled", false);
           $("#successMsg")
             .modal("show")
             .find(".modal-body p")

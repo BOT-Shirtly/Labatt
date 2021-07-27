@@ -1,226 +1,449 @@
 <!-- Navbar -->
-<div class="container animated fadeIn " style="padding: 0px;">
-    <section class="header">
-        <img src="img/logo.png" style="width:10%;padding: 10px;">
-    </section>
-    <section id="menuBar">
-        <ul style="margin: 0;padding: 0;">
-            <li class="menuSelected" ng-click="goToAllOrders()"><i class="fas fa-tshirt"></i> All Orders</li>
-            <li ng-click="goToUsers()"><i class="fas fa-users"></i> Users</li>
-            <li ng-click="goToRewardUsers()"><i class="fas fa-gift"></i> Add Reward Users</li>
-            <li ng-click="goToAllRewardOrders()"><i class="fas fa-gift"></i> All Reward Orders</li>
-            <li ng-click="goToRewardCustomerOrders()"><i class="fas fa-gift"></i> Reward Customer Orders</li>
-        </ul>
-    </section>
-    <script>
-        $("#menuBar ul li").click(function(){
-            var clickedIndex = $(this).index();
-            $("#menuBar ul li").each(function(){
-                if($(this).index() == clickedIndex){
-                    $(this).addClass("menuSelected")
-                }else{
-                    $(this).removeClass("menuSelected")
-                }
-            })
-        })
-    </script>
-    <section class="moreInfo" style="color: #000;">
-        <div ui-view style="" class="uiView z-depth-1"></div>
-        
-
-    </section>
+<div class="container animated fadeIn" style="padding: 0px">
+  <section class="header">
+    <img src="img/logo.png" style="width: 10%; padding: 10px" />
+  </section>
+  <section id="menuBar">
+    <ul style="margin: 0; padding: 0">
+      <!--li class="menuSelected" ng-click="goToAllOrders()"><i class="fas fa-tshirt"></i> All Orders</li>
+            <li ng-click="goToUsers()"><i class="fas fa-users"></i> Users</li-->
+      <li ng-click="goToRewardUsers()">
+        <i class="fas fa-gift"></i> Add Reward Users
+      </li>
+      <li class="menuSelected" ng-click="goToAllRewardOrders()" id="selectThis">
+        <i class="fas fa-gift"></i> All Reward Orders
+      </li>
+      <li ng-click="goToRewardCustomerOrders()">
+        <i class="fas fa-gift"></i> Reward Customer Orders
+      </li>
+    </ul>
+  </section>
+  <script>
+    $("#menuBar ul li").click(function () {
+      var clickedIndex = $(this).index();
+      $("#menuBar ul li").each(function () {
+        if ($(this).index() == clickedIndex) {
+          $(this).addClass("menuSelected");
+        } else {
+          $(this).removeClass("menuSelected");
+        }
+      });
+    });
+  </script>
+  <section class="moreInfo" style="color: #000">
+    <div ui-view style="" class="uiView z-depth-1"></div>
+  </section>
 </div>
 
+<div
+  class="modal fade"
+  id="orderInfo"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  style="z-index: 9999"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
+    role="document"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order Info</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-8">
+            <h3>Items</h3>
+            <hr />
+            <div class="container-fluid" id="thisOrderData"></div>
+          </div>
+          <div class="col-4">
+            <h3>Shipping Information</h3>
+            <hr />
+            <div class="card">
+              <!-- Card image -->
+              <img
+                class="card-img-top"
+                src="img/locate.png"
+                alt="Card image cap"
+              />
 
-<div class="modal fade" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Order Info</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+              <!-- Card content -->
+              <div
+                class="card-body"
+                id="thisOrderShippingData"
+                style="line-height: 20px; font-size: 14px"
+              ></div>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-8">
-                        <h3>Items</h3>
-                        <hr>
-                        <div class="container-fluid" id="thisOrderData">
-
-                        </div>
-                        
-                    </div>
-                    <div class="col-4">
-                        <h3>Shipping Information</h3>
-                        <hr>
-                        <div class="card">
-
-                          <!-- Card image -->
-                          <img class="card-img-top" src="img/locate.png" alt="Card image cap">
-
-                          <!-- Card content -->
-                          <div class="card-body" id="thisOrderShippingData" style="line-height: 20px;font-size: 14px;">
-
-                          </div>
-
-                        </div>
-                    
-                    </div>
-                    <div class="col-12" style="margin-top: 20px;">
-                        <h5>Order Status: <orderstatus style="display: none;"><img src="img/loader.gif" style="width: 20px;"></orderstatus></h5>
-                        <hr style="margin-bottom: 0px;">
-                        <table class="table">
-                          <thead class="black white-text">
-                            <tr>
-                              <th scope="col" style="padding: 8px;">Service</th>
-                              <th scope="col" style="padding: 8px;">Order Number</th>
-                                <th scope="col" style="padding: 8px;">Order Status</th>
-                              <th scope="col" style="padding: 8px;">Ship Date</th>
-                              <th scope="col" style="padding: 8px;">Tracking #</th>
-                              <th scope="col" style="padding: 8px;">Notify</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr id="trackingStatus">
-                            </tr>
-                          </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #00ACD7  !important;">Close</button>
-            </div>
+          </div>
+          <div class="col-12" style="margin-top: 20px">
+            <h5>
+              Order Status:
+              <orderstatus style="display: none"
+                ><img src="img/loader.gif" style="width: 20px"
+              /></orderstatus>
+            </h5>
+            <hr style="margin-bottom: 0px" />
+            <table class="table">
+              <thead class="black white-text">
+                <tr>
+                  <th scope="col" style="padding: 8px">Service</th>
+                  <th scope="col" style="padding: 8px">Order Number</th>
+                  <th scope="col" style="padding: 8px">Order Status</th>
+                  <th scope="col" style="padding: 8px">Ship Date</th>
+                  <th scope="col" style="padding: 8px">Tracking #</th>
+                  <th scope="col" style="padding: 8px">Notify</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="trackingStatus"></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          style="background-color: #00acd7 !important"
+        >
+          Close
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 
+<div
+  class="modal fade"
+  id="sendToBot"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  style="z-index: 9999"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
+    role="document"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Send To BOT - <span id="thisOrderPOnumber"></span>
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-4">
+            <h3>Items</h3>
+            <hr />
+            <div
+              class="container-fluid"
+              id="sendToBotOrderData"
+              style="height: 220px; overflow-y: auto; margin-bottom: 10px"
+            ></div>
+            <h5>Final Amount</h5>
+            <hr style="border-color: #000" />
 
-<div class="modal fade" id="sendToBot" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Send To BOT - <span id="thisOrderPOnumber"></span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-4">
-                        <h3>Items</h3>
-                        <hr>
-                        <div class="container-fluid" id="sendToBotOrderData" style="height: 220px;overflow-y: auto;margin-bottom: 10px;">
-                            
-                        </div>
-                        <h5>Final Amount</h5>
-                        <hr style="border-color: #000;">
+            <p>
+              Quantity:<checkoutQuantity style="float: right"
+                >0</checkoutQuantity
+              >
+            </p>
+            <p>
+              Amount:<checkoutProdAmnt style="float: right"
+                >0.00</checkoutProdAmnt
+              >
+            </p>
+            <p>
+              Shipping:<checkoutShipping style="float: right"
+                >0.00</checkoutShipping
+              >
+            </p>
+            <p>Tax:<checkoutTax style="float: right">0.00</checkoutTax></p>
 
-                        <p>Quantity:<checkoutQuantity style="float: right;">0</checkoutQuantity>
-                        </p>
-                        <p>Amount:<checkoutProdAmnt style="float: right;">0.00</checkoutProdAmnt>
-                        </p>
-                        <p>Shipping:<checkoutShipping style="float: right;">0.00</checkoutShipping>
-                        </p>
-                        <p>Tax:<checkoutTax style="float: right;">0.00</checkoutTax>
-                        </p>
+            <p style="margin-bottom: 0px; border-bottom: 1px solid #ccc">
+              Final Amount:
+            </p>
+            <checkoutFinal style="display: block; text-align: right"
+              >0.00</checkoutFinal
+            >
+          </div>
+          <div class="col-4">
+            <h3>Shipping Information</h3>
+            <hr />
+            <p style="margin: 0px; font-size: 14px">
+              Name<span style="color: red; font-weight: bold">*</span>
+            </p>
+            <input
+              type="text"
+              id="personName"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
+            <p style="margin: 0px; font-size: 14px">
+              Address 1<span style="color: red; font-weight: bold">*</span>
+            </p>
+            <input
+              type="text"
+              id="address1"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
+            <p style="margin: 0px; font-size: 14px">Address 2</p>
+            <input
+              type="text"
+              id="address2"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
+            <p style="margin: 0px; font-size: 14px">
+              City<span style="color: red; font-weight: bold">*</span>
+            </p>
+            <input
+              type="text"
+              id="city"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
+            <p style="margin: 0px; font-size: 14px">
+              Zip<span style="color: red; font-weight: bold">*</span>
+            </p>
+            <input
+              type="text"
+              id="zip"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
+            <p style="margin: 0px; font-size: 14px">
+              Country<span style="color: red; font-weight: bold">*</span>
+            </p>
+            <input
+              type="text"
+              id="country"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
 
-                        <p style="margin-bottom: 0px;border-bottom: 1px solid #ccc;">Final Amount:</p>
-                        <checkoutFinal style="display: block;text-align: right;">0.00</checkoutFinal>
-                        
-                    </div>
-                    <div class="col-4">
-                        <h3>Shipping Information</h3>
-                        <hr>
-                        <p style="margin: 0px;font-size: 14px;">Name<span style="color: red;font-weight: bold;">*</span></p>
-                        <input type="text" id="personName" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                        <p style="margin: 0px;font-size: 14px;">Address 1<span style="color: red;font-weight: bold;">*</span></p>
-                        <input type="text" id="address1" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                        <p style="margin: 0px;font-size: 14px;">Address 2</p>
-                        <input type="text" id="address2" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                        <p style="margin: 0px;font-size: 14px;">City<span style="color: red;font-weight: bold;">*</span></p>
-                        <input type="text" id="city" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                        <p style="margin: 0px;font-size: 14px;">Zip<span style="color: red;font-weight: bold;">*</span></p>
-                        <input type="text" id="zip" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                        <p style="margin: 0px;font-size: 14px;">Country<span style="color: red;font-weight: bold;">*</span></p>
-                        <input type="text" id="country" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                        
-                        <p style="margin: 0px;font-size: 14px;">State<span style="color: red;font-weight: bold;">*</span></p>
-                        <input type="text" id="state" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                        
-                        <p style="margin: 0px;font-size: 14px;">Email<span style="color: red;font-weight: bold;">*</span></p>
-                        <input type="text" id="email" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                        <p style="margin: 0px;font-size: 14px;">Contact</p>
-                        <input type="number" id="contact" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;" disabled>
-                    
-                    </div>
-                    <div class="col-4">
-                        <h3>Payment</h3>
-                        <hr style="border-color: #000;">
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <div class="paymentScreen" style="width: 100%;margin: 0px auto;padding: 0px 0px;" id="payment-form1">
-                                    <img src="img/stripe1.png" style="width: 70%;margin: 10px auto;display: block;">
-                                    <div class="md-form">
-                                        <input type="number" id="paymentCardNumber1" class="form-control">
-                                        <label for="paymentCardNumber1">Card Number</label>
-                                    </div>
-                                    <div class="md-form">
-                                        <input type="number" id="paymentCardMonth1" class="form-control">
-                                        <label for="paymentCardMonth1">Card Exp. Month</label>
-                                    </div>
-                                    <div class="md-form">
-                                        <input type="number" id="paymentCardYear1" class="form-control">
-                                        <label for="paymentCardYear1">Card Exp. Year</label>
-                                    </div>
-                                    <div class="md-form">
-                                        <input type="number" id="paymentCardCvv1" class="form-control">
-                                        <label for="paymentCardCvv1">Card CVV</label>
-                                    </div>
-                                </div>
-                                <p style="font-size: 14px;">Note: Please do not close any Pop-Up or Window while Processing.</p>
-                                <img src="img/secure-stripe-payment-logo.png" style="width: 100%;"> 
-                            </div>
-                        </div>
-                    </div>
+            <p style="margin: 0px; font-size: 14px">
+              State<span style="color: red; font-weight: bold">*</span>
+            </p>
+            <input
+              type="text"
+              id="state"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
+
+            <p style="margin: 0px; font-size: 14px">
+              Email<span style="color: red; font-weight: bold">*</span>
+            </p>
+            <input
+              type="text"
+              id="email"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
+            <p style="margin: 0px; font-size: 14px">Contact</p>
+            <input
+              type="number"
+              id="contact"
+              style="
+                width: 100%;
+                height: 24px;
+                padding-left: 3px;
+                margin-bottom: 10px;
+              "
+              disabled
+            />
+          </div>
+          <div class="col-4">
+            <h3>Payment</h3>
+            <hr style="border-color: #000" />
+            <div class="row">
+              <div class="col-12 text-center">
+                <div
+                  class="paymentScreen"
+                  style="width: 100%; margin: 0px auto; padding: 0px 0px"
+                  id="payment-form1"
+                >
+                  <img
+                    src="img/stripe1.png"
+                    style="width: 70%; margin: 10px auto; display: block"
+                  />
+                  <div class="md-form">
+                    <input
+                      type="number"
+                      id="paymentCardNumber1"
+                      class="form-control"
+                    />
+                    <label for="paymentCardNumber1">Card Number</label>
+                  </div>
+                  <div class="md-form">
+                    <input
+                      type="number"
+                      id="paymentCardMonth1"
+                      class="form-control"
+                    />
+                    <label for="paymentCardMonth1">Card Exp. Month</label>
+                  </div>
+                  <div class="md-form">
+                    <input
+                      type="number"
+                      id="paymentCardYear1"
+                      class="form-control"
+                    />
+                    <label for="paymentCardYear1">Card Exp. Year</label>
+                  </div>
+                  <div class="md-form">
+                    <input
+                      type="number"
+                      id="paymentCardCvv1"
+                      class="form-control"
+                    />
+                    <label for="paymentCardCvv1">Card CVV</label>
+                  </div>
                 </div>
+                <p style="font-size: 14px">
+                  Note: Please do not close any Pop-Up or Window while
+                  Processing.
+                </p>
+                <img
+                  src="img/secure-stripe-payment-logo.png"
+                  style="width: 100%"
+                />
+              </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" style="background-color: #cf2027 !important;" onclick="generateToken()" id="generateToken">Submit Order</button>
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          style="background-color: #cf2027 !important"
+          onclick="generateToken()"
+          id="generateToken"
+        >
+          Submit Order
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="modal fade" id="invoiceFiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Invoice Files - <span id="thisOrderCustomerEmail" style="font-size: 16px;color: #777;"></span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div
+  class="modal fade"
+  id="invoiceFiles"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  style="z-index: 9999"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
+    role="document"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Invoice Files -
+          <span
+            id="thisOrderCustomerEmail"
+            style="font-size: 16px; color: #777"
+          ></span>
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" id="invoicesData">
+          <div
+            class="preloader-wrapper big active"
+            style="display: block; margin: 0px auto"
+          >
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
             </div>
-            <div class="modal-body">
-                <div class="row" id="invoicesData">
-                    <div class="preloader-wrapper big active" style="display:block;margin:0px auto;">
-                        <div class="spinner-layer spinner-blue-only">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div>
-                            <div class="gap-patch">
-                                <div class="circle"></div>
-                            </div>
-                            <div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-

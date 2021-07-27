@@ -115,30 +115,30 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
     contentType: "application/json",
     success: function (data) {
       $("#productList").html("");
-      for (var i = 0; i < data[1].prodList.length; i++) {
+      for (var i = 0; i < data[2].prodList.length; i++) {
         var html =
           '<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center" style="cursor: pointer;margin-bottom:20px;" data-toggle="modal" data-target="#productInfo" prodId="' +
-          data[1].prodList[i].prodId +
+          data[2].prodList[i].prodId +
           '" id="' +
-          data[1].prodList[i].prodId +
+          data[2].prodList[i].prodId +
           '" onclick="openThisProdInfo(this)"><a style="display:inline-block;">';
         html +=
           '<img src="' +
-          data[1].prodList[i].images[0].src +
+          data[2].prodList[i].images[0].src +
           '" class="front" style="width:70%;margin-bottom:0px;">';
-        if (data[1].prodList[i].images[1] != undefined) {
+        if (data[2].prodList[i].images[1] != undefined) {
           html +=
             '<img src="' +
-            data[1].prodList[i].images[1].src +
+            data[2].prodList[i].images[1].src +
             '" class="back" style="width:100%;margin-bottom:0px;display:none;">';
         }
         html +=
           '<p style="margin-bottom:8px;font-size: 14px;">' +
-          data[1].prodList[i].prodTittle +
+          data[2].prodList[i].prodTittle +
           "</p>";
         html +=
           '<p style="margin:0px;color: #a1a1a1;font-family:Montserrat Regular,sans-serif;">CAD $' +
-          data[1].prodList[i].prodPrice +
+          data[2].prodList[i].prodPrice +
           "</p>";
         html += "</a></div>";
         $("#productList").append(html);
@@ -365,9 +365,6 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
         }
       }
     }
-  };
-  $scope.login = function () {
-    alert(1);
   };
 });
 routerApp.controller("returnController", function ($scope, $state, $timeout) {
@@ -1052,26 +1049,26 @@ function openThisProdInfo(e) {
       data: JSON.stringify({ currentUser: "SickKids" }),
       contentType: "application/json",
       success: function (data) {
-        for (var i = 0; i < data[1].prodList.length; i++) {
-          if (data[1].prodList[i].prodId == prodId) {
+        for (var i = 0; i < data[2].prodList.length; i++) {
+          if (data[2].prodList[i].prodId == prodId) {
             $("#prodInfoLoading").fadeOut();
             $("#addToCartBtn").prop("disabled", false);
 
-            $("#thisProdImg").attr("src", data[1].prodList[i].images[0].src);
+            $("#thisProdImg").attr("src", data[2].prodList[i].images[0].src);
             $("#thisProdArtImg").attr(
               "src",
-              data[1].prodList[i].artworkSrc[0].artWorkImgUrl
+              data[2].prodList[i].artworkSrc[0].artWorkImgUrl
             );
 
-            if (data[1].prodList[i].artworkBackSrc != undefined) {
+            if (data[2].prodList[i].artworkBackSrc != undefined) {
               $("#thisProdBackArtImg").attr(
                 "src",
-                data[1].prodList[i].artworkBackSrc[0].artWorkImgUrl
+                data[2].prodList[i].artworkBackSrc[0].artWorkImgUrl
               );
             }
 
-            if (data[1].prodList[i].images.length > 1) {
-              for (var l = 0; l < data[1].prodList[i].images.length; l++) {
+            if (data[2].prodList[i].images.length > 1) {
+              for (var l = 0; l < data[2].prodList[i].images.length; l++) {
                 if (l == 0) {
                   var html =
                     '<div class="col-3 selectedBox" style="padding: 0px;border: 1px solid #ccc;cursor:pointer;margin-right: 5px;" onclick="showThisImage(this)">';
@@ -1081,57 +1078,57 @@ function openThisProdInfo(e) {
                 }
                 html +=
                   '<img src="' +
-                  data[1].prodList[i].images[l].src +
+                  data[2].prodList[i].images[l].src +
                   '" style="width:100%;">';
                 html += "</div>";
                 $("#differentSides").append(html);
               }
             }
 
-            $("#thisProdName").text(data[1].prodList[i].prodTittle);
-            $("#thisProdId").text(data[1].prodList[i].prodId);
-            $("#thisProdDesc").append(data[1].prodList[i].prodDescription);
-            $("#thisProdSku span").text(data[1].prodList[i].prodSku);
+            $("#thisProdName").text(data[2].prodList[i].prodTittle);
+            $("#thisProdId").text(data[2].prodList[i].prodId);
+            $("#thisProdDesc").append(data[2].prodList[i].prodDescription);
+            $("#thisProdSku span").text(data[2].prodList[i].prodSku);
 
-            $("#thisProdPrice span").text(data[1].prodList[i].prodPrice);
-            $("#thisProdType span").text(data[1].prodList[i].prodCat);
+            $("#thisProdPrice span").text(data[2].prodList[i].prodPrice);
+            $("#thisProdType span").text(data[2].prodList[i].prodCat);
             $("#thisProdColor").html("");
             for (
               var j = 0;
-              j < data[1].prodList[i].options[0].values.length;
+              j < data[2].prodList[i].options[0].values.length;
               j++
             ) {
               if (j == 0) {
                 var html =
                   '<div class="selected colorBox" value="' +
-                  data[1].prodList[i].options[0].values[j].split("-")[0] +
+                  data[2].prodList[i].options[0].values[j].split("-")[0] +
                   '" onclick="getVariantInfo(this)"><i style="color:' +
-                  data[1].prodList[i].options[0].values[j].split("-")[1] +
+                  data[2].prodList[i].options[0].values[j].split("-")[1] +
                   ';margin-right:5px;" class="fas fa-stop z-depth-1"></i>' +
-                  data[1].prodList[i].options[0].values[j].split("-")[0] +
+                  data[2].prodList[i].options[0].values[j].split("-")[0] +
                   "</div>";
               } else {
                 var html =
                   '<div class="colorBox" value="' +
-                  data[1].prodList[i].options[0].values[j].split("-")[0] +
+                  data[2].prodList[i].options[0].values[j].split("-")[0] +
                   '" onclick="getVariantInfo(this)"><i style="color:' +
-                  data[1].prodList[i].options[0].values[j].split("-")[1] +
+                  data[2].prodList[i].options[0].values[j].split("-")[1] +
                   ';margin-right:5px;" class="fas fa-stop z-depth-1"></i>' +
-                  data[1].prodList[i].options[0].values[j].split("-")[0] +
+                  data[2].prodList[i].options[0].values[j].split("-")[0] +
                   "</div>";
               }
               $("#thisProdColor").append(html);
             }
             for (
               var j = 0;
-              j < data[1].prodList[i].options[1].values.length;
+              j < data[2].prodList[i].options[1].values.length;
               j++
             ) {
               var html =
                 '<option value="' +
-                data[1].prodList[i].options[1].values[j] +
+                data[2].prodList[i].options[1].values[j] +
                 '">' +
-                data[1].prodList[i].options[1].values[j] +
+                data[2].prodList[i].options[1].values[j] +
                 "</option>";
 
               $("#thisProdSize").append(html);
@@ -1167,8 +1164,8 @@ function openSizeChart(e) {
   $("#thisProdSizeChart").attr("src", "img/" + sku + ".png");
 }
 
-function getVariantInfo(e) {
-  /*var currentColor = $(e).attr("value");
+/*function getVariantInfo(e) {
+  var currentColor = $(e).attr("value");
     
     $("#thisProdColor .colorBox").each(function () {
         if ($(this).attr("value") == currentColor) {
@@ -1263,8 +1260,8 @@ function getVariantInfo(e) {
                 
             }
         }
-    });*/
-}
+    });
+}*/
 
 function calculateTotalProdPrice() {
   $("#currUserRewardPin").val("");
@@ -1898,8 +1895,8 @@ function sendtoLynx(transactionId, cardType, paymentMethod) {
                     data: JSON.stringify({ currentUser: "SickKids" }),
                     contentType: "application/json",
                     success: function (data) {
-                      var key = data[1]._id;
-                      var orderListArr = data[1].orderList;
+                      var key = data[2]._id;
+                      var orderListArr = data[2].orderList;
                       orderListArr.push({
                         orderNumber: PONumber,
                         orderDate: today,
