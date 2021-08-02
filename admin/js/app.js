@@ -1,5 +1,5 @@
-//ngrokUrl = "https://bot-node-app.firebaseapp.com/";
-ngrokUrl = "https://fc777409f87c.ngrok.io/";
+ngrokUrl = "https://bot-node-app.firebaseapp.com/";
+//ngrokUrl = "https://fc777409f87c.ngrok.io/";
 
 var routerApp = angular.module("webApp", ["ui.router"]);
 routerApp.config(function ($stateProvider, $urlRouterProvider) {
