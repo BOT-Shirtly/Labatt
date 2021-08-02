@@ -22,11 +22,11 @@
               type="text"
               id="searchRewardUser"
               class="form-control"
-              style="margin: 0; width: 75%"
+              style="margin: 0; width: 100%"
               onkeyup="searchSickKidsUser()"
             />
-            <label for="searchUser">Search User</label>
-            <button
+            <label for="searchRewardUser">Search User</label>
+            <!--button
               class="btn btn-primary"
               style="
                 background-color: #00acd7 !important;
@@ -42,7 +42,7 @@
               disabled
             >
               <i class="fas fa-bolt"></i>
-            </button>
+            </button-->
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@
             id="thisUserDelete"
             disabled
           >
-            Delete
+            <i class="far fa-trash-alt"></i> Delete
           </button>
           <button
             class="btn btn-info"
@@ -131,7 +131,7 @@
             id="thisUserEmail"
             disabled
           >
-            Send Reward Email
+            <i class="far fa-envelope"></i> Send Reward Email
           </button>
         </div>
         <hr />
@@ -155,15 +155,53 @@
               style="color: #000; padding-top: 10px; display: block"
             ></span>
           </p>
+          <br />
+          <p
+            id="rewardCode"
+            class="text-left"
+            style="margin: 0px; color: #a1a1a1"
+          >
+            Reward Code: <br /><span
+              style="color: #000; padding-top: 10px; display: block"
+            ></span>
+          </p>
         </div>
         <div class="col-6 text-left">
-          <p class="text-left" style="margin: 0px; color: #a1a1a1">
+          <p
+            class="text-left"
+            style="
+              margin: 0px;
+              color: #a1a1a1;
+              position: relative;
+              padding: 8px 0;
+              border-bottom: 1px solid #ccc;
+              margin-bottom: 0px;
+            "
+          >
             Reward Products:
+            <button
+              type="button"
+              style="
+                position: absolute;
+                right: 0;
+                margin: 0;
+                padding: 2px 15px;
+                top: 5px;
+              "
+              class="btn btn-default btn-sm"
+              disabled
+              id="thisUserRewardProds"
+              data-toggle="modal"
+              data-target="#editRewardProducts"
+              onclick="editRewardPoints()"
+            >
+              <i class="far fa-edit"></i> EDIT
+            </button>
           </p>
           <ul
             id="rewardProd"
             class="text-left"
-            style="margin: 0px; padding: 10px 20px"
+            style="margin: 0px; padding: 10px 20px; line-height: 25px"
           ></ul>
         </div>
       </div>
@@ -184,3 +222,23 @@
     </div>
   </div>
 </div>
+<script>
+  function editRewardPoints() {
+    $("#editRewardProductsList").html("");
+    $("#submitNewRewardItemList").attr(
+      "databaseid",
+      $("#thisUserDelete").attr("databaseid")
+    );
+    $("#rewardProd li").each(function () {
+      var html = '<li class="list-group-item">';
+      html +=
+        '<i class="far fa-trash-alt" style="float: right; cursor: pointer" onclick="deleteThisRewardItem(this)"></i>';
+      html += $(this).find("b").text();
+      html += "    </li>";
+      $("#editRewardProductsList").append(html);
+    });
+  }
+  function deleteThisRewardItem(e) {
+    $(e).parent().remove();
+  }
+</script>

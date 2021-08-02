@@ -1,4 +1,5 @@
-ngrokUrl = "https://bot-node-app.firebaseapp.com/";
+//ngrokUrl = "https://bot-node-app.firebaseapp.com/";
+ngrokUrl = "https://fc777409f87c.ngrok.io/";
 
 var routerApp = angular.module("webApp", ["ui.router"]);
 routerApp.config(function ($stateProvider, $urlRouterProvider) {
@@ -582,7 +583,6 @@ function getThisRewardUserData(e) {
   $("#thisRewardUserOrderlist").html(
     '<div class="preloader-wrapper big active" style="display:block;margin:20px auto;"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"<div class="circle"></div></div></div></div>'
   );
-
   var userName = $(e).find("p").text();
   $("#selectedRewardUser").text(userName);
   $("#rewardProd").html("");
@@ -596,20 +596,18 @@ function getThisRewardUserData(e) {
     success: function (sickKidsUserData) {
       $("#rewardUsername span").text(sickKidsUserData.email);
       $("#rewardPassword span").text(sickKidsUserData.password);
+      $("#rewardCode span").text(sickKidsUserData.code);
       for (var i = 0; i < sickKidsUserData.rewardProd.length; i++) {
         var html =
-          "<li><b>" +
-          sickKidsUserData.rewardProd[i]
-            .replace(/_/g, " ")
-            .replace("Speaker", "Wireless Speaker")
-            .toUpperCase() +
-          "</b></li>";
+          "<li><b>" + sickKidsUserData.rewardProd[i].replace(/_/g, " ");
+        ("</b></li>");
         $("#rewardProd").append(html);
       }
 
       $("#thisUserDelete").attr("databaseId", sickKidsUserData._id);
       $("#thisUserDelete").prop("disabled", false);
       $("#thisUserEmail").prop("disabled", false);
+      $("#thisUserRewardProds").prop("disabled", false);
       $("#thisRewardUserOrderlist").html("");
       if (sickKidsUserData.orders.length == 0) {
         var html = '<div class="row" style="margin-top: 1rem;">';
@@ -1615,8 +1613,11 @@ function renderCSVfile(oEvent) {
             const search = ",";
             const replaceWith = ", ";
             var html =
-              '<div class="row lineData" style="margin: 0px;padding: 0px 0px;border-bottom: 1px solid #ccc;font-size: 12px;">';
-
+              '<div class="row lineData" style="position:relative;margin: 0px;padding: 0px 0px;border-bottom: 1px solid #ccc;font-size: 12px;">';
+            html +=
+              '<p class="userAlreadyPresent" style="display:none;position: absolute;bottom: 0;margin: 0;padding: 5px 10px;background-color: orange;color: #fff;border-top-right-radius: 5px;"><i class="fas fa-exclamation-triangle"></i> User Already Present</p>';
+            html +=
+              '<p class="userSubmitted" style="display:none;position: absolute;bottom: 0;margin: 0;padding: 5px 10px;background-color: #3fcef1;color: #fff;border-top-right-radius: 5px;"><i class="far fa-check-circle"></i> User Submitted</p>';
             html +=
               '<div class="col-1 custName" style="padding: 27px 15px;"><span data-toggle="tooltip" title="' +
               needReport[i][custFirstName].split(search).join(replaceWith) +
@@ -1748,6 +1749,7 @@ function saveRewardUser() {
   });
   var time = 0;
   setTimeout(function () {
+    repeateUser = [];
     $("#feedData .lineData").each(function (index) {
       var userThis = $(this);
       var userIndex = index;
@@ -1800,45 +1802,71 @@ function saveRewardUser() {
           amount: currUserPoints,
           userToken: userToken,
         };
+
         $.ajax({
-          url: ngrokUrl + "notifySickKidsCustomerForRewards",
+          url: ngrokUrl + "checkSickKidsRewardCustomer",
           type: "POST",
           async: false,
           data: JSON.stringify(mailData),
           contentType: "application/json",
-          success: function (notifySickKidsCustomerForRewards) {
-            var storeData = {
-              email: currUser,
-              memail: currMajorUser,
-              name: currUserName,
-              lastName: currUserLName,
-              code: randomCode,
-              codeStatus: "Active",
-              password: userPass,
-              amount: currUserPoints,
-              rewardProd: currRewardProd,
-              emailResponse: notifySickKidsCustomerForRewards,
-              shipInfo: currUserShippingInfo,
-              orders: [],
-              userToken: userToken,
-            };
-            $.ajax({
-              url: ngrokUrl + "addSickKidsRewardCustomer",
-              type: "POST",
-              async: false,
-              data: JSON.stringify({ data: storeData }),
-              contentType: "application/json",
-              success: function (addSickKidsRewardCustomer) {},
-            });
+          success: function (checkSickKidsRewardCustomer) {
+            if (checkSickKidsRewardCustomer.length <= 0) {
+              $.ajax({
+                url: ngrokUrl + "notifySickKidsCustomerForRewards",
+                type: "POST",
+                async: false,
+                data: JSON.stringify(mailData),
+                contentType: "application/json",
+                success: function (notifySickKidsCustomerForRewards) {
+                  var storeData = {
+                    email: currUser,
+                    memail: currMajorUser,
+                    name: currUserName,
+                    lastName: currUserLName,
+                    code: randomCode,
+                    codeStatus: "Active",
+                    password: userPass,
+                    amount: currUserPoints,
+                    rewardProd: currRewardProd,
+                    emailResponse: notifySickKidsCustomerForRewards,
+                    shipInfo: currUserShippingInfo,
+                    orders: [],
+                    userToken: userToken,
+                  };
+                  $.ajax({
+                    url: ngrokUrl + "addSickKidsRewardCustomer",
+                    type: "POST",
+                    async: false,
+                    data: JSON.stringify({ data: storeData }),
+                    contentType: "application/json",
+                    success: function (addSickKidsRewardCustomer) {
+                      userThis.addClass("userInsert");
+                      repeateUser.push("UserPresent");
+                    },
+                  });
+                },
+              });
+              userThis.addClass("userInsert");
+            } else {
+              userThis.addClass("userPresent");
+              repeateUser.push("UserPresent");
+            }
           },
         });
 
         if (userIndex == $("#feedData .lineData").length - 1) {
           $("#savingNewUser").modal("hide");
-          $("#successMsg")
-            .modal("show")
-            .find(".modal-body p")
-            .text("New Users added to database and informed via E-Mail !!");
+          if (repeateUser.length > 0) {
+            $("#successMsg")
+              .modal("show")
+              .find(".modal-body p")
+              .text("Some user are already present in the database !!");
+          } else {
+            $("#successMsg")
+              .modal("show")
+              .find(".modal-body p")
+              .text("New Users added to database and informed via E-Mail !!");
+          }
         }
       }, time);
       time += 4000;
@@ -1849,7 +1877,6 @@ function saveRewardUser() {
 function sendRewardEmail(e) {
   $(e).text("Sending...").prop("disabled", true);
   var userName = $("#selectedRewardUser").text();
-
   var rewardProd = [];
   $("#rewardProd li").each(function () {
     rewardProd.push($(this).find("b").text());
@@ -1887,6 +1914,160 @@ function sendRewardEmail(e) {
       });
     },
   });
+}
+
+function submitNewRewardItem(e) {
+  $(e).text("Submitting...").prop("disabled", true);
+  var rewardPin = Math.floor(Math.random() * 10000000 + 1);
+  randomCode = "SKGL" + rewardPin;
+  var dataId = $(e).attr("databaseid");
+  var rewardProdArr = [];
+  $("#editRewardProductsList li").each(function () {
+    rewardProdArr.push($(this).text().trim());
+  });
+  var dataToSend = {
+    randomCode,
+    dataId,
+    rewardProdArr,
+  };
+  if (rewardProdArr.length <= 0) {
+    $("#errorMsg")
+      .modal("show")
+      .find(".modal-body p")
+      .text("No reward Item is present !!");
+    $(e).text("Submit").prop("disabled", false);
+  } else {
+    var amountArr = [];
+    for (var i = 0; i < rewardProdArr.length; i++) {
+      if (rewardProdArr[i].split(" ")[1] == "Tshirt") {
+        amountArr.push(Number(rewardProdArr[i].split(" ")[0] * 25));
+      }
+      if (rewardProdArr[i].split(" ")[1] == "Hat") {
+        amountArr.push(Number(rewardProdArr[i].split(" ")[0] * 35));
+      }
+      if (rewardProdArr[i].split(" ")[1] == "Hoodie") {
+        amountArr.push(Number(rewardProdArr[i].split(" ")[0] * 50));
+      }
+    }
+    var totalAmnt = amountArr.reduce((a, b) => a + b, 0);
+
+    setTimeout(function () {
+      $.ajax({
+        url: ngrokUrl + "updateSickKidsRewardCustomerItems",
+        type: "POST",
+        async: false,
+        data: JSON.stringify({ ...dataToSend, totalAmnt }),
+        contentType: "application/json",
+        success: function (updateSickKidsRewardCustomerItems) {
+          // Update Data on Screen
+          var userName = $("#selectedRewardUser").text();
+          $("#thisRewardUserOrderlist").html(
+            '<div class="preloader-wrapper big active" style="display:block;margin:20px auto;"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"<div class="circle"></div></div></div></div>'
+          );
+          $("#rewardProd").html("");
+          $.ajax({
+            url: ngrokUrl + "getSKRewardUserDataInfo",
+            type: "POST",
+            data: JSON.stringify({
+              currentUser: userName,
+            }),
+            contentType: "application/json",
+            success: function (sickKidsUserData) {
+              $("#rewardUsername span").text(sickKidsUserData.email);
+              $("#rewardPassword span").text(sickKidsUserData.password);
+              $("#rewardCode span").text(sickKidsUserData.code);
+              for (var i = 0; i < sickKidsUserData.rewardProd.length; i++) {
+                var html =
+                  "<li><b>" + sickKidsUserData.rewardProd[i].replace(/_/g, " ");
+                ("</b></li>");
+                $("#rewardProd").append(html);
+              }
+
+              $("#thisUserDelete").attr("databaseId", sickKidsUserData._id);
+              $("#thisUserDelete").prop("disabled", false);
+              $("#thisUserEmail").prop("disabled", false);
+              $("#thisUserRewardProds").prop("disabled", false);
+              $("#thisRewardUserOrderlist").html("");
+              if (sickKidsUserData.orders.length == 0) {
+                var html = '<div class="row" style="margin-top: 1rem;">';
+                html +=
+                  '<div class="col-12" style="margin: 8px 0px;font-size: 14px;color: #777;text-align:center;">No Order Present</div>';
+                html += "</div>";
+                $("#thisRewardUserOrderlist").append(html);
+              } else {
+                for (var i = 0; i < sickKidsUserData.orders.length; i++) {
+                  var html = '<div class="row" style="margin-top: 1rem;">';
+                  html +=
+                    '<div class="col-3 orderDate" style="margin: 9px 0px;font-size: 14px;color: #777;">Date: <span style="font-size: 14px;color: #000;">' +
+                    sickKidsUserData.orders[i].orderDate +
+                    "</span></div>";
+                  html +=
+                    '<div class="col-3 poNumber" style="margin: 9px 0px;font-size: 14px;color: #777;overflow: hidden !important;text-overflow: ellipsis;white-space: nowrap;">PO: <span style="font-size: 14px;color: #000;">' +
+                    sickKidsUserData.orders[i].orderNumber +
+                    "</span></div>";
+                  html +=
+                    '<div class="col-4 databaseId" style="margin: 9px 0px;font-size: 14px;color: #777;">Database Id: <span style="font-size: 14px;color: #000;">' +
+                    sickKidsUserData._id +
+                    "</span></div>";
+
+                  html +=
+                    '<div class="col-2 text-center"><button class="btn btn-link" style="margin: 0;padding: 5px 10px;" data-toggle="modal" data-target="#orderInfo" onclick="getOrderInfo(this)"><i class="fas fa-info-circle" style="margin: 0;font-size: 20px;"></i></button></div>';
+                  html += "</div></div>";
+                  html += "<hr>";
+                  $("#thisRewardUserOrderlist").append(html);
+                  $(function () {
+                    $('[data-toggle="tooltip"]').tooltip();
+                  });
+                }
+              }
+
+              // Send Reward Email
+              var rewardProd = [];
+              $("#rewardProd li").each(function () {
+                rewardProd.push($(this).find("b").text());
+              });
+              $.ajax({
+                url: ngrokUrl + "getSKRewardUserDataInfo",
+                type: "POST",
+                data: JSON.stringify({
+                  currentUser: userName,
+                }),
+                contentType: "application/json",
+                success: function (sickKidsUserData) {
+                  var mailData = {
+                    email: sickKidsUserData.email,
+                    name: sickKidsUserData.name,
+                    html: $("#rewardProd").html(),
+                    code: sickKidsUserData.code,
+                    password: sickKidsUserData.password,
+                    amount: sickKidsUserData.amount,
+                  };
+
+                  $.ajax({
+                    url: ngrokUrl + "notifySickKidsCustomerForRewards",
+                    type: "POST",
+                    async: false,
+                    data: JSON.stringify(mailData),
+                    contentType: "application/json",
+                    success: function (notifySickKidsCustomerForRewards) {
+                      $("#successMsg")
+                        .modal("show")
+                        .find(".modal-body p")
+                        .text(
+                          "Reward Item(s) updated and user informed via Email !!"
+                        );
+                      $(e).text("Submit").prop("disabled", false);
+                      $("#editRewardProducts").modal("hide");
+                    },
+                  });
+                },
+              });
+            },
+          });
+        },
+      });
+    }, 1000);
+  }
 }
 
 /*---------------------------------------------------------------------------------------------------------------*/

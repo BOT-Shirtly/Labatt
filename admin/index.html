@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon.ico">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon.ico" />
     <title>SickKids GetLoud Shop | Admin</title>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="css/mdb.min.css" rel="stylesheet" />
     <!-- Your custom styles (optional) -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/swiper.min.css" rel="stylesheet">
-    <link href="font/montserrat/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/swiper.min.css" rel="stylesheet" />
+    <link href="font/montserrat/style.css" rel="stylesheet" />
+  </head>
 
-
-</head>
-
-<body ng-app="webApp">
+  <body ng-app="webApp">
     <!--Navbar-->
-    
-
 
     <div ui-view style="" class="uiView"></div>
-
 
     <!-- Full Height Modal Right -->
     <!-- Start your project here-->
@@ -48,11 +48,11 @@
     <script type="text/javascript" src="js/mdb.min.js"></script>
     <!-- Swiper JavaScript -->
     <script type="text/javascript" src="js/swiper.min.js"></script>
-    
+
     <script src="https://js.stripe.com/v2/"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        Stripe.setPublishableKey('pk_live_ymUURqwtyyLULzjvQJLNv3HR00BW0sLpUR');
+      Stripe.setPublishableKey("pk_live_ymUURqwtyyLULzjvQJLNv3HR00BW0sLpUR");
     </script>
 
     <script src="js/angular.js"></script>
@@ -62,375 +62,781 @@
     <script src="js/json2xml.js"></script>
     <script src="js/countries.js"></script>
     <script src="js/js2xml.js"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
-    
-    <div class="modal fade" id="checkOutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 999999;">
-        <div class="modal-dialog  modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Checkout</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <h5>Shipping Details</h5>
-                            <hr style="border-color: #000;">
-                            <p style="margin: 0px;font-size: 14px;">Name<span style="color: red;font-weight: bold;">*</span></p>
-                            <input type="text" id="personName" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;">
-                            <p style="margin: 0px;font-size: 14px;">Address 1<span style="color: red;font-weight: bold;">*</span></p>
-                            <input type="text" id="address1" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;">
-                            <p style="margin: 0px;font-size: 14px;">Address 2</p>
-                            <input type="text" id="address2" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;">
-                            <p style="margin: 0px;font-size: 14px;">City<span style="color: red;font-weight: bold;">*</span></p>
-                            <input type="text" id="city" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;">
-                            <p style="margin: 0px;font-size: 14px;">Zip<span style="color: red;font-weight: bold;">*</span></p>
-                            <input type="text" id="zip" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;">
-                            <p style="margin: 0px;font-size: 14px;">Country<span style="color: red;font-weight: bold;">*</span></p>
-                            <select id="country" style="width: 100%;height: 24px;margin-bottom: 10px;" onchange="getStates()"></select>
 
-                            <p style="margin: 0px;font-size: 14px;">State<span style="color: red;font-weight: bold;">*</span></p>
-                            <select id="state" style="width: 100%;height: 24px;margin-bottom: 10px;" onchange="generateTaxPrices()"></select>
+    <div
+      class="modal fade"
+      id="checkOutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      style="z-index: 999999"
+    >
+      <div
+        class="
+          modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable
+        "
+        role="document"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Checkout</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <h5>Shipping Details</h5>
+                <hr style="border-color: #000" />
+                <p style="margin: 0px; font-size: 14px">
+                  Name<span style="color: red; font-weight: bold">*</span>
+                </p>
+                <input
+                  type="text"
+                  id="personName"
+                  style="
+                    width: 100%;
+                    height: 24px;
+                    padding-left: 3px;
+                    margin-bottom: 10px;
+                  "
+                />
+                <p style="margin: 0px; font-size: 14px">
+                  Address 1<span style="color: red; font-weight: bold">*</span>
+                </p>
+                <input
+                  type="text"
+                  id="address1"
+                  style="
+                    width: 100%;
+                    height: 24px;
+                    padding-left: 3px;
+                    margin-bottom: 10px;
+                  "
+                />
+                <p style="margin: 0px; font-size: 14px">Address 2</p>
+                <input
+                  type="text"
+                  id="address2"
+                  style="
+                    width: 100%;
+                    height: 24px;
+                    padding-left: 3px;
+                    margin-bottom: 10px;
+                  "
+                />
+                <p style="margin: 0px; font-size: 14px">
+                  City<span style="color: red; font-weight: bold">*</span>
+                </p>
+                <input
+                  type="text"
+                  id="city"
+                  style="
+                    width: 100%;
+                    height: 24px;
+                    padding-left: 3px;
+                    margin-bottom: 10px;
+                  "
+                />
+                <p style="margin: 0px; font-size: 14px">
+                  Zip<span style="color: red; font-weight: bold">*</span>
+                </p>
+                <input
+                  type="text"
+                  id="zip"
+                  style="
+                    width: 100%;
+                    height: 24px;
+                    padding-left: 3px;
+                    margin-bottom: 10px;
+                  "
+                />
+                <p style="margin: 0px; font-size: 14px">
+                  Country<span style="color: red; font-weight: bold">*</span>
+                </p>
+                <select
+                  id="country"
+                  style="width: 100%; height: 24px; margin-bottom: 10px"
+                  onchange="getStates()"
+                ></select>
 
-                            <p style="margin: 0px;font-size: 14px;">Email<span style="color: red;font-weight: bold;">*</span></p>
-                            <input type="text" id="email" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;">
-                            <p style="margin: 0px;font-size: 14px;">Contact</p>
-                            <input type="number" id="contact" style="width: 100%;height: 24px;padding-left: 3px;margin-bottom: 10px;">
+                <p style="margin: 0px; font-size: 14px">
+                  State<span style="color: red; font-weight: bold">*</span>
+                </p>
+                <select
+                  id="state"
+                  style="width: 100%; height: 24px; margin-bottom: 10px"
+                  onchange="generateTaxPrices()"
+                ></select>
 
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <h5>Final Amount</h5>
-                            <hr style="border-color: #000;">
+                <p style="margin: 0px; font-size: 14px">
+                  Email<span style="color: red; font-weight: bold">*</span>
+                </p>
+                <input
+                  type="text"
+                  id="email"
+                  style="
+                    width: 100%;
+                    height: 24px;
+                    padding-left: 3px;
+                    margin-bottom: 10px;
+                  "
+                />
+                <p style="margin: 0px; font-size: 14px">Contact</p>
+                <input
+                  type="number"
+                  id="contact"
+                  style="
+                    width: 100%;
+                    height: 24px;
+                    padding-left: 3px;
+                    margin-bottom: 10px;
+                  "
+                />
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <h5>Final Amount</h5>
+                <hr style="border-color: #000" />
 
-                            <p>Quantity:<checkoutQuantity style="float: right;">0</checkoutQuantity>
-                            </p>
-                            <p>Amount:<checkoutProdAmnt style="float: right;">0.00</checkoutProdAmnt>
-                            </p>
-                            <p>Shipping:<checkoutShipping style="float: right;">0.00</checkoutShipping>
-                            </p>
-                            <p>Tax:<checkoutTax style="float: right;">0.00</checkoutTax>
-                            </p>
+                <p>
+                  Quantity:<checkoutQuantity style="float: right"
+                    >0</checkoutQuantity
+                  >
+                </p>
+                <p>
+                  Amount:<checkoutProdAmnt style="float: right"
+                    >0.00</checkoutProdAmnt
+                  >
+                </p>
+                <p>
+                  Shipping:<checkoutShipping style="float: right"
+                    >0.00</checkoutShipping
+                  >
+                </p>
+                <p>Tax:<checkoutTax style="float: right">0.00</checkoutTax></p>
 
-                            <p style="margin-bottom: 0px;border-bottom: 1px solid #ccc;">Final Amount:</p>
-                            <checkoutFinal style="display: block;text-align: right;">0.00</checkoutFinal>
-
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <h5>Payment</h5>
-                            <hr style="border-color: #000;">
-                            <div class="row">
-                                <div class="col-12 text-center">
-                                    <div class="paymentScreen" style="width: 100%;margin: 0px auto;padding: 0px 20px;" id="payment-form1">
-                                        <img src="img/stripe1.png" style="width: 70%;margin: 10px auto;display: block;">
-                                        <div class="md-form">
-                                            <input type="number" id="paymentCardNumber1" class="form-control">
-                                            <label for="paymentCardNumber1">Card Number</label>
-                                        </div>
-                                        <div class="md-form">
-                                            <input type="number" id="paymentCardMonth1" class="form-control">
-                                            <label for="paymentCardMonth1">Card Exp. Month</label>
-                                        </div>
-                                        <div class="md-form">
-                                            <input type="number" id="paymentCardYear1" class="form-control">
-                                            <label for="paymentCardYear1">Card Exp. Year</label>
-                                        </div>
-                                        <div class="md-form">
-                                            <input type="number" id="paymentCardCvv1" class="form-control">
-                                            <label for="paymentCardCvv1">Card CVV</label>
-                                        </div>
-                                    </div>
-                                    <p style="font-size: 14px;">Note: Please do not close any Pop-Up or Window while Processing.</p>
-                                    <img src="img/secure-stripe-payment-logo.png" style="width: 100%;"> 
-                                </div>
-                            </div>
-
-                        </div>
+                <p style="margin-bottom: 0px; border-bottom: 1px solid #ccc">
+                  Final Amount:
+                </p>
+                <checkoutFinal style="display: block; text-align: right"
+                  >0.00</checkoutFinal
+                >
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <h5>Payment</h5>
+                <hr style="border-color: #000" />
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <div
+                      class="paymentScreen"
+                      style="width: 100%; margin: 0px auto; padding: 0px 20px"
+                      id="payment-form1"
+                    >
+                      <img
+                        src="img/stripe1.png"
+                        style="width: 70%; margin: 10px auto; display: block"
+                      />
+                      <div class="md-form">
+                        <input
+                          type="number"
+                          id="paymentCardNumber1"
+                          class="form-control"
+                        />
+                        <label for="paymentCardNumber1">Card Number</label>
+                      </div>
+                      <div class="md-form">
+                        <input
+                          type="number"
+                          id="paymentCardMonth1"
+                          class="form-control"
+                        />
+                        <label for="paymentCardMonth1">Card Exp. Month</label>
+                      </div>
+                      <div class="md-form">
+                        <input
+                          type="number"
+                          id="paymentCardYear1"
+                          class="form-control"
+                        />
+                        <label for="paymentCardYear1">Card Exp. Year</label>
+                      </div>
+                      <div class="md-form">
+                        <input
+                          type="number"
+                          id="paymentCardCvv1"
+                          class="form-control"
+                        />
+                        <label for="paymentCardCvv1">Card CVV</label>
+                      </div>
                     </div>
-
+                    <p style="font-size: 14px">
+                      Note: Please do not close any Pop-Up or Window while
+                      Processing.
+                    </p>
+                    <img
+                      src="img/secure-stripe-payment-logo.png"
+                      style="width: 100%"
+                    />
+                  </div>
                 </div>
-                <div class="modal-footer">
-                     
-                    <button type="button" class="btn btn-primary" onclick="generateToken()" id="generateToken" style="background-color: #cf2027 !important;">Submit Order</button>
-                </div>
+              </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="generateToken()"
+              id="generateToken"
+              style="background-color: #cf2027 !important"
+            >
+              Submit Order
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Frame Modal Bottom -->
-    <div class="modal fade bottom" id="errorMsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 999999;">
-
-        <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
-        <div class="modal-dialog modal-frame modal-bottom" role="document">
-
-
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <h3 style="margin:0px 12px 3px 0px;color:#ff3547">Error !! </h3>
-                        <p class="pt-3 pr-2">
-                        </p>
-                    </div>
-                </div>
+    <div
+      class="modal fade bottom"
+      id="errorMsg"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      style="z-index: 999999"
+    >
+      <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+      <div class="modal-dialog modal-frame modal-bottom" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row d-flex justify-content-center align-items-center">
+              <h3 style="margin: 0px 12px 3px 0px; color: #ff3547">Error !!</h3>
+              <p class="pt-3 pr-2"></p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <div class="modal fade bottom" id="successMsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 999999;">
-
-        <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
-        <div class="modal-dialog modal-frame modal-bottom" role="document">
-
-
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <h3 style="margin:0px 12px 3px 0px;color:#00ACD7">Success !! </h3>
-                        <p class="pt-3 pr-2">
-                        </p>
-                    </div>
-                </div>
+    <div
+      class="modal fade bottom"
+      id="successMsg"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      style="z-index: 999999"
+    >
+      <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+      <div class="modal-dialog modal-frame modal-bottom" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row d-flex justify-content-center align-items-center">
+              <h3 style="margin: 0px 12px 3px 0px; color: #00acd7">
+                Success !!
+              </h3>
+              <p class="pt-3 pr-2"></p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-
-    <div class="modal fade" id="invoiceModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999;">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Invoice - Order Submitted</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="invoiceData1">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <img src="img/logo.png" style="width:100%;">
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <h3 style="margin: 0px;font-size: 16px;">Big Oven Tee's Inc.</h3>
-                            <p style="margin: 0px;font-size: 12px;">122 Middleton Street</p>
-                            <p style="margin: 0px;font-size: 12px;">Brantford ON N3S7V7</p>
-                            <p style="margin: 0px;font-size: 12px;">(519)753-8081 / info@bigoventees.com</p>
-                            <p style="margin: 0px;font-size: 12px;">www.bigoventees.com</p>
-                            <p style="margin: 0px;font-size: 12px;">Business Number 708341888 RC0001</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <h4>INVOICE</h4>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <h6>INVOICE TO</h6>
-                            <div class="invoiceTo">
-                                <p style="margin: 0px;font-size: 12px;">Sports Link</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <h6>SHIP TO</h6>
-                            <div class="shipTo"></div>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                            <h6>Date: <todayDate></todayDate>
-                            </h6>
-                            <script>
-                                function formatDate(date) {
-                                  var monthNames = [
-                                    "January", "February", "March",
-                                    "April", "May", "June", "July",
-                                    "August", "September", "October",
-                                    "November", "December"
-                                  ];
-
-                                  var day = date.getDate();
-                                  var monthIndex = date.getMonth();
-                                  var year = date.getFullYear();
-
-                                  return day + ' ' + monthNames[monthIndex] + ' ' + year;
-                                }
-
-                                $("#invoiceData1 todayDate").append(formatDate(new Date()));
-                            </script>
-                            <h6>Terms: Stripe</h6>
-                        </div>
-                        <hr>
-
-
-                    </div>
-                    <div class="row" style="margin-top: 20px;">
-                        <div class="col-12">
-                            <table class="table table-sm table-striped">
-                                <thead class="black white-text">
-                                    <tr>
-                                        <th scope="col">Product</th>
-                                        <th scope="col">SKU</th>
-                                        <th scope="col">Color</th>
-                                        <th scope="col">QTY</th>
-                                        <th scope="col">Size</th>
-                                        <th scope="col" style="text-align: right;">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="invoiceDesc1">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                            <p>Thank you for choosing Big Oven Tees Inc. !!!</p>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                            <div class="row">
-                                <div class="col-6" style="text-align: right;">Shipping</div>
-                                <div class="col-6" style="text-align: right;">
-                                    <shippingAmnt></shippingAmnt>
-                                </div>
-                                <div class="col-6" style="text-align: right;">Tax</div>
-                                <div class="col-6" style="text-align: right;">
-                                    <taxAmnt></taxAmnt>
-                                </div>
-                                <div class="col-6" style="text-align: right;">Total</div>
-                                <div class="col-6" style="text-align: right;">
-                                    <finalAmnt></finalAmnt>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="background-color: #cf2027 !important;">Close</button>
-                </div>
+    <div
+      class="modal fade"
+      id="invoiceModal1"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      style="z-index: 99999"
+    >
+      <div
+        class="
+          modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable
+        "
+        role="document"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Invoice - Order Submitted
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="invoiceData1">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <img src="img/logo.png" style="width: 100%" />
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                <h3 style="margin: 0px; font-size: 16px">
+                  Big Oven Tee's Inc.
+                </h3>
+                <p style="margin: 0px; font-size: 12px">122 Middleton Street</p>
+                <p style="margin: 0px; font-size: 12px">Brantford ON N3S7V7</p>
+                <p style="margin: 0px; font-size: 12px">
+                  (519)753-8081 / info@bigoventees.com
+                </p>
+                <p style="margin: 0px; font-size: 12px">www.bigoventees.com</p>
+                <p style="margin: 0px; font-size: 12px">
+                  Business Number 708341888 RC0001
+                </p>
+              </div>
             </div>
-        </div>
-    </div>
-    
-    <div class="modal fade" id="generatingReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-
-    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-        <div class="modal-dialog modal-dialog-centered" role="document">
-
-
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p style="text-align: center;margin-bottom: 5px;">Generating Report</p>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="preloader-wrapper big active" style="display:block;margin:20px auto;">
-                                <div class="spinner-layer spinner-blue-only">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p id="generatingPOValue" style="margin: 0px 0 0 0;    font-size: 13px;">Order PO : <span>Loading...</span></p>
+            <hr />
+            <h4>INVOICE</h4>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <h6>INVOICE TO</h6>
+                <div class="invoiceTo">
+                  <p style="margin: 0px; font-size: 12px">Sports Link</p>
                 </div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <h6>SHIP TO</h6>
+                <div class="shipTo"></div>
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <h6>Date: <todayDate></todayDate></h6>
+                <script>
+                  function formatDate(date) {
+                    var monthNames = [
+                      "January",
+                      "February",
+                      "March",
+                      "April",
+                      "May",
+                      "June",
+                      "July",
+                      "August",
+                      "September",
+                      "October",
+                      "November",
+                      "December",
+                    ];
+
+                    var day = date.getDate();
+                    var monthIndex = date.getMonth();
+                    var year = date.getFullYear();
+
+                    return day + " " + monthNames[monthIndex] + " " + year;
+                  }
+
+                  $("#invoiceData1 todayDate").append(formatDate(new Date()));
+                </script>
+                <h6>Terms: Stripe</h6>
+              </div>
+              <hr />
             </div>
-        </div>
-    </div>
-    
-    <div class="modal fade" id="generatingRewardUserReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-
-    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-        <div class="modal-dialog modal-dialog-centered" role="document">
-
-
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p style="text-align: center;margin-bottom: 5px;">Generating Report</p>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="preloader-wrapper big active" style="display:block;margin:20px auto;">
-                                <div class="spinner-layer spinner-blue-only">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p id="generatingRewardUserValue" style="margin: 0px 0 0 0;font-size: 13px;">Reward user : <span>Loading...</span></p>
-                </div>
+            <div class="row" style="margin-top: 20px">
+              <div class="col-12">
+                <table class="table table-sm table-striped">
+                  <thead class="black white-text">
+                    <tr>
+                      <th scope="col">Product</th>
+                      <th scope="col">SKU</th>
+                      <th scope="col">Color</th>
+                      <th scope="col">QTY</th>
+                      <th scope="col">Size</th>
+                      <th scope="col" style="text-align: right">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="invoiceDesc1"></tbody>
+                </table>
+              </div>
             </div>
-        </div>
-    </div>
-    
-    <div class="modal fade" id="savingNewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-
-    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p style="text-align: center;margin-bottom: 5px;">Saving New User(s)</p>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="preloader-wrapper big active" style="display:block;margin:20px auto;">
-                                <div class="spinner-layer spinner-blue-only">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p id="currSavingUser" style="margin: 0px 0 0 0;    font-size: 13px;">User : <span>Loading...</span></p>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <p>Thank you for choosing Big Oven Tees Inc. !!!</p>
+              </div>
+              <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="row">
+                  <div class="col-6" style="text-align: right">Shipping</div>
+                  <div class="col-6" style="text-align: right">
+                    <shippingAmnt></shippingAmnt>
+                  </div>
+                  <div class="col-6" style="text-align: right">Tax</div>
+                  <div class="col-6" style="text-align: right">
+                    <taxAmnt></taxAmnt>
+                  </div>
+                  <div class="col-6" style="text-align: right">Total</div>
+                  <div class="col-6" style="text-align: right">
+                    <finalAmnt></finalAmnt>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              style="background-color: #cf2027 !important"
+            >
+              Close
+            </button>
+          </div>
         </div>
-    </div>
-    
-    <div class="modal fade" id="invoiceFiles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
-        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Invoice Files - <span id="thisOrderCustomerEmail" style="font-size: 16px;color: #777;"></span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row" id="invoicesData">
-                        <div class="preloader-wrapper big active" style="display:block;margin:0px auto;">
-                            <div class="spinner-layer spinner-blue-only">
-                                <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                </div>
-                                <div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div>
-                                <div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
 
-</body>
+    <div
+      class="modal fade"
+      id="generatingReportModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p style="text-align: center; margin-bottom: 5px">
+              Generating Report
+            </p>
+            <div class="row">
+              <div class="col-12">
+                <div
+                  class="preloader-wrapper big active"
+                  style="display: block; margin: 20px auto"
+                >
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p
+              id="generatingPOValue"
+              style="margin: 0px 0 0 0; font-size: 13px"
+            >
+              Order PO : <span>Loading...</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div
+      class="modal fade"
+      id="generatingRewardUserReportModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p style="text-align: center; margin-bottom: 5px">
+              Generating Report
+            </p>
+            <div class="row">
+              <div class="col-12">
+                <div
+                  class="preloader-wrapper big active"
+                  style="display: block; margin: 20px auto"
+                >
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p
+              id="generatingRewardUserValue"
+              style="margin: 0px 0 0 0; font-size: 13px"
+            >
+              Reward user : <span>Loading...</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="savingNewUser"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p style="text-align: center; margin-bottom: 5px">
+              Saving New User(s)
+            </p>
+            <div class="row">
+              <div class="col-12">
+                <div
+                  class="preloader-wrapper big active"
+                  style="display: block; margin: 20px auto"
+                >
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p id="currSavingUser" style="margin: 0px 0 0 0; font-size: 13px">
+              User : <span>Loading...</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="invoiceFiles"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      style="z-index: 9999"
+    >
+      <div
+        class="
+          modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable
+        "
+        role="document"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Invoice Files -
+              <span
+                id="thisOrderCustomerEmail"
+                style="font-size: 16px; color: #777"
+              ></span>
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row" id="invoicesData">
+              <div
+                class="preloader-wrapper big active"
+                style="display: block; margin: 0px auto"
+              >
+                <div class="spinner-layer spinner-blue-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="editRewardProducts"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Reward Products</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row" style="margin-bottom: 20px">
+              <div class="col-5">
+                <label for="addNewRewardProdQty" style="font-size: 12px"
+                  >Reward Product Quantity</label
+                >
+                <div class="def-number-input number-input safari_only">
+                  <button
+                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                    class="minus"
+                  ></button>
+                  <input
+                    id="addNewRewardProdQty"
+                    class="quantity"
+                    min="1"
+                    name="quantity"
+                    value="1"
+                    type="number"
+                    disabled
+                  />
+                  <button
+                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                    class="plus"
+                  ></button>
+                </div>
+              </div>
+              <div class="col-5">
+                <label for="addNewRewardProductList" style="font-size: 12px"
+                  >Reward Product</label
+                >
+                <select
+                  class="browser-default custom-select"
+                  id="addNewRewardProductList"
+                  style="height: 34px"
+                  onchange="selectedRewardProduct()"
+                >
+                  <option selected>Select Reward Product</option>
+                  <option value="Hat">Hat</option>
+                  <option value="Tshirt">Tshirt</option>
+                  <option value="Hoodie">Hoodie</option>
+                </select>
+              </div>
+              <div class="col-2">
+                <label for="addNewRewardProduct" style="font-size: 12px"
+                  >Add</label
+                >
+                <button
+                  class="btn btn-primary btn-sm"
+                  disabled
+                  id="addNewRewardProduct"
+                  onclick="addNewRewardProductToList()"
+                  style="
+                    margin: 0;
+                    padding: 2px 10px;
+                    width: 100%;
+                    height: 34px;
+                  "
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            <script>
+              function selectedRewardProduct() {
+                var selectedRewardProd = $("#addNewRewardProductList").val();
+                if (selectedRewardProd == "Select Reward Product") {
+                  $("#addNewRewardProduct").prop("disabled", true);
+                } else {
+                  $("#addNewRewardProduct").prop("disabled", false);
+                }
+              }
+              function addNewRewardProductToList() {
+                var toReturn;
+                var rewardProdQty = $("#addNewRewardProdQty").val();
+                var selectedRewardProd = $("#addNewRewardProductList").val();
+                var newText = rewardProdQty + " " + selectedRewardProd;
+                $("#editRewardProductsList li").each(function (index) {
+                  if (
+                    $(this).text().trim().split(" ")[1] == selectedRewardProd
+                  ) {
+                    var html =
+                      '<i class="far fa-trash-alt" style="float: right; cursor: pointer" onclick="deleteThisRewardItem(this)"></i>' +
+                      newText;
+                    $(this).html(html);
+                    return false;
+                  } else {
+                    if (index == $("#editRewardProductsList li").length - 1) {
+                      var html = '<li class="list-group-item">';
+                      html +=
+                        '<i class="far fa-trash-alt" style="float: right; cursor: pointer" onclick="deleteThisRewardItem(this)"></i>';
+                      html += newText;
+                      html += "    </li>";
+                      $("#editRewardProductsList").append(html);
+                    }
+                  }
+                });
+                return toReturn;
+              }
+            </script>
+
+            <ul class="list-group" id="editRewardProductsList"></ul>
+            <p
+              style="
+                margin: 20px 0;
+                color: orange;
+                line-height: 20px;
+                font-size: 14px;
+              "
+            >
+              Note: Submit will generate a new reward code and send an email to
+              user notifying updated reward items and reward code.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              onclick="submitNewRewardItem(this)"
+              id="submitNewRewardItemList"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -73,7 +73,6 @@ routerApp.controller("mainController", function ($scope, $state, $timeout) {
       data: JSON.stringify({ currentUser: currUser }),
       contentType: "application/json",
       success: function (getSKRewardUserData) {
-        console.log(getSKRewardUserData);
         if (getSKRewardUserData == "No User") {
           $("#majorTeamEmail span").text("Login to view your Team Email.");
           $("#currUserRewardPin").html("");
@@ -752,62 +751,30 @@ function checkEnteredRewarCred() {
           }, 0);
 
           // Adult Hoodie
-          var adultHoodieArr = [];
+          var hoodieArr = [];
           $("#shoppingCartProds .col-12").each(function () {
             if (
-              $(this).find(".thisCartProdType span").text() == "Adult_Hoodie"
-            ) {
-              adultHoodieArr.push(
-                parseInt($(this).find(".thisCartProdQty").val())
-              );
-            }
-          });
-          var totalAdultHoodiesInCart = adultHoodieArr.reduce(function (a, b) {
-            return a + b;
-          }, 0);
-
-          // Youth Hoodie
-          var youthHoodieArr = [];
-          $("#shoppingCartProds .col-12").each(function () {
-            if (
+              $(this).find(".thisCartProdType span").text() == "Adult_Hoodie" ||
               $(this).find(".thisCartProdType span").text() == "Youth_Hoodie"
             ) {
-              youthHoodieArr.push(
-                parseInt($(this).find(".thisCartProdQty").val())
-              );
+              hoodieArr.push(parseInt($(this).find(".thisCartProdQty").val()));
             }
           });
-          var totalYouthHoodiesInCart = youthHoodieArr.reduce(function (a, b) {
+          var totalHoodiesInCart = hoodieArr.reduce(function (a, b) {
             return a + b;
           }, 0);
 
           // Youth T-Shirt
-          var youthTshirtArr = [];
+          var tshirtArr = [];
           $("#shoppingCartProds .col-12").each(function () {
             if (
-              $(this).find(".thisCartProdType span").text() == "Youth_Tshirt"
-            ) {
-              youthTshirtArr.push(
-                parseInt($(this).find(".thisCartProdQty").val())
-              );
-            }
-          });
-          var totalyouthTshirtsInCart = youthTshirtArr.reduce(function (a, b) {
-            return a + b;
-          }, 0);
-
-          // Adult T-Shirt
-          var adultTshirtArr = [];
-          $("#shoppingCartProds .col-12").each(function () {
-            if (
+              $(this).find(".thisCartProdType span").text() == "Youth_Tshirt" ||
               $(this).find(".thisCartProdType span").text() == "Adult_Tshirt"
             ) {
-              adultTshirtArr.push(
-                parseInt($(this).find(".thisCartProdQty").val())
-              );
+              tshirtArr.push(parseInt($(this).find(".thisCartProdQty").val()));
             }
           });
-          var totaladultTshirtsInCart = adultTshirtArr.reduce(function (a, b) {
+          var totalTshirtsInCart = tshirtArr.reduce(function (a, b) {
             return a + b;
           }, 0);
 
@@ -851,12 +818,11 @@ function checkEnteredRewarCred() {
             } else if (thisProdType == "Adult_Tshirt") {
               for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
                 if (
-                  getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                  "Adult_Tshirt"
+                  getSKRewardUserData.rewardProd[i].split(" ")[1] == "Tshirt"
                 ) {
-                  var allowedAdultTshirts =
+                  var allowedTshirts =
                     getSKRewardUserData.rewardProd[i].split(" ")[0];
-                  if (totaladultTshirtsInCart > allowedAdultTshirts) {
+                  if (totalTshirtsInCart > allowedTshirts) {
                     $(this).addClass("errorProd");
                     $("#checkOutBtn").prop("disabled", true);
                   } else {
@@ -867,11 +833,11 @@ function checkEnteredRewarCred() {
                   if (i == getSKRewardUserData.rewardProd.length - 1) {
                     if (
                       getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                      "Adult_Tshirt"
+                      "Tshirt"
                     ) {
-                      var allowedAdultTshirts =
+                      var allowedTshirts =
                         getSKRewardUserData.rewardProd[i].split(" ")[0];
-                      if (totaladultTshirtsInCart > allowedAdultTshirts) {
+                      if (totalTshirtsInCart > allowedTshirts) {
                         $(this).addClass("errorProd");
                         $("#checkOutBtn").prop("disabled", true);
                       } else {
@@ -889,12 +855,11 @@ function checkEnteredRewarCred() {
             } else if (thisProdType == "Youth_Tshirt") {
               for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
                 if (
-                  getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                  "Youth_Tshirt"
+                  getSKRewardUserData.rewardProd[i].split(" ")[1] == "Tshirt"
                 ) {
-                  var allowedYouthTshirts =
+                  var allowedTshirts =
                     getSKRewardUserData.rewardProd[i].split(" ")[0];
-                  if (totalyouthTshirtsInCart > allowedYouthTshirts) {
+                  if (totalTshirtsInCart > allowedTshirts) {
                     $(this).addClass("errorProd");
                     $("#checkOutBtn").prop("disabled", true);
                   } else {
@@ -905,11 +870,11 @@ function checkEnteredRewarCred() {
                   if (i == getSKRewardUserData.rewardProd.length - 1) {
                     if (
                       getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                      "Youth_Tshirt"
+                      "Tshirt"
                     ) {
-                      var allowedYouthTshirts =
+                      var allowedTshirts =
                         getSKRewardUserData.rewardProd[i].split(" ")[0];
-                      if (totalyouthTshirtsInCart > allowedYouthTshirts) {
+                      if (totalTshirtsInCart > allowedTshirts) {
                         $(this).addClass("errorProd");
                         $("#checkOutBtn").prop("disabled", true);
                       } else {
@@ -927,12 +892,11 @@ function checkEnteredRewarCred() {
             } else if (thisProdType == "Adult_Hoodie") {
               for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
                 if (
-                  getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                  "Adult_Hoodie"
+                  getSKRewardUserData.rewardProd[i].split(" ")[1] == "Hoodie"
                 ) {
-                  var allowedAdultHoodies =
+                  var allowedHoodies =
                     getSKRewardUserData.rewardProd[i].split(" ")[0];
-                  if (totalAdultHoodiesInCart > allowedAdultHoodies) {
+                  if (totalHoodiesInCart > allowedHoodies) {
                     $(this).addClass("errorProd");
                     $("#checkOutBtn").prop("disabled", true);
                   } else {
@@ -943,11 +907,11 @@ function checkEnteredRewarCred() {
                   if (i == getSKRewardUserData.rewardProd.length - 1) {
                     if (
                       getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                      "Adult_Hoodie"
+                      "Hoodie"
                     ) {
-                      var allowedAdultHoodies =
+                      var allowedHoodies =
                         getSKRewardUserData.rewardProd[i].split(" ")[0];
-                      if (totalAdultHoodiesInCart > allowedAdultHoodies) {
+                      if (totalHoodiesInCart > allowedHoodies) {
                         $(this).addClass("errorProd");
                         $("#checkOutBtn").prop("disabled", true);
                       } else {
@@ -965,12 +929,11 @@ function checkEnteredRewarCred() {
             } else if (thisProdType == "Youth_Hoodie") {
               for (var i = 0; i < getSKRewardUserData.rewardProd.length; i++) {
                 if (
-                  getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                  "Youth_Hoodie"
+                  getSKRewardUserData.rewardProd[i].split(" ")[1] == "Hoodie"
                 ) {
-                  var allowedYouthHoodies =
+                  var allowedHoodies =
                     getSKRewardUserData.rewardProd[i].split(" ")[0];
-                  if (totalYouthHoodiesInCart > allowedYouthHoodies) {
+                  if (totalHoodiesInCart > allowedHoodies) {
                     $(this).addClass("errorProd");
                     $("#checkOutBtn").prop("disabled", true);
                   } else {
@@ -981,11 +944,11 @@ function checkEnteredRewarCred() {
                   if (i == getSKRewardUserData.rewardProd.length - 1) {
                     if (
                       getSKRewardUserData.rewardProd[i].split(" ")[1] ==
-                      "Youth_Hoodie"
+                      "Hoodie"
                     ) {
-                      var allowedYouthHoodies =
+                      var allowedHoodies =
                         getSKRewardUserData.rewardProd[i].split(" ")[0];
-                      if (totalYouthHoodiesInCart > allowedYouthHoodies) {
+                      if (totalHoodiesInCart > allowedHoodies) {
                         $(this).addClass("errorProd");
                         $("#checkOutBtn").prop("disabled", true);
                       } else {
