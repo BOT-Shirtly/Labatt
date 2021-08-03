@@ -596,7 +596,18 @@ function getThisRewardUserData(e) {
     success: function (sickKidsUserData) {
       $("#rewardUsername span").text(sickKidsUserData.email);
       $("#rewardPassword span").text(sickKidsUserData.password);
-      $("#rewardCode span").text(sickKidsUserData.code);
+
+      if (sickKidsUserData.codeStatus == "Active") {
+        $("#rewardCode span").html(
+          sickKidsUserData.code +
+            "<a style='float: right;text-decoration: underline;color: #33b5e5;' dataId=" +
+            sickKidsUserData._id +
+            " onclick='deactivateCode(this)'>De-Activate</a>"
+        );
+      } else {
+        $("#rewardCode span").html(sickKidsUserData.code);
+      }
+
       for (var i = 0; i < sickKidsUserData.rewardProd.length; i++) {
         var html =
           "<li><b>" + sickKidsUserData.rewardProd[i].replace(/_/g, " ");
@@ -650,6 +661,118 @@ function getThisRewardUserData(e) {
       }
     },
   });
+}
+
+function deactivateCode(e) {
+  $(e).text("De-Activating...");
+  var dataId = $(e).attr("dataId");
+  setTimeout(function () {
+    $.ajax({
+      url: ngrokUrl + "deactivateRewardCode",
+      type: "POST",
+      async: false,
+      data: JSON.stringify({ dataId }),
+      contentType: "application/json",
+      success: function (deactivateRewardCode) {
+        // Update Data on Screen
+        var userName = $("#selectedRewardUser").text();
+        $("#thisRewardUserOrderlist").html(
+          '<div class="preloader-wrapper big active" style="display:block;margin:20px auto;"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"<div class="circle"></div></div></div></div>'
+        );
+        $("#rewardProd").html("");
+        $.ajax({
+          url: ngrokUrl + "getSKRewardUserDataInfo",
+          type: "POST",
+          data: JSON.stringify({
+            currentUser: userName,
+          }),
+          contentType: "application/json",
+          success: function (sickKidsUserData) {
+            $("#rewardUsername span").text(sickKidsUserData.email);
+            $("#rewardPassword span").text(sickKidsUserData.password);
+            if (sickKidsUserData.codeStatus == "Active") {
+              $("#rewardCode span").html(
+                sickKidsUserData.code +
+                  "<a style='float: right;text-decoration: underline;color: #33b5e5;' dataId=" +
+                  sickKidsUserData._id +
+                  " onclick='deactivateCode(this)'>De-Activate</a>"
+              );
+            } else {
+              $("#rewardCode span").html(sickKidsUserData.code);
+            }
+            for (var i = 0; i < sickKidsUserData.rewardProd.length; i++) {
+              var html =
+                "<li><b>" + sickKidsUserData.rewardProd[i].replace(/_/g, " ");
+              ("</b></li>");
+              $("#rewardProd").append(html);
+            }
+
+            $("#thisUserDelete").attr("databaseId", sickKidsUserData._id);
+            $("#thisUserDelete").prop("disabled", false);
+            $("#thisUserEmail").prop("disabled", false);
+            $("#thisUserRewardProds").prop("disabled", false);
+            $("#thisRewardUserOrderlist").html("");
+            if (sickKidsUserData.orders.length == 0) {
+              var html = '<div class="row" style="margin-top: 1rem;">';
+              html +=
+                '<div class="col-12" style="margin: 8px 0px;font-size: 14px;color: #777;text-align:center;">No Order Present</div>';
+              html += "</div>";
+              $("#thisRewardUserOrderlist").append(html);
+            } else {
+              for (var i = 0; i < sickKidsUserData.orders.length; i++) {
+                var html = '<div class="row" style="margin-top: 1rem;">';
+                html +=
+                  '<div class="col-3 orderDate" style="margin: 9px 0px;font-size: 14px;color: #777;">Date: <span style="font-size: 14px;color: #000;">' +
+                  sickKidsUserData.orders[i].orderDate +
+                  "</span></div>";
+                html +=
+                  '<div class="col-3 poNumber" style="margin: 9px 0px;font-size: 14px;color: #777;overflow: hidden !important;text-overflow: ellipsis;white-space: nowrap;">PO: <span style="font-size: 14px;color: #000;">' +
+                  sickKidsUserData.orders[i].orderNumber +
+                  "</span></div>";
+                html +=
+                  '<div class="col-4 databaseId" style="margin: 9px 0px;font-size: 14px;color: #777;">Database Id: <span style="font-size: 14px;color: #000;">' +
+                  sickKidsUserData._id +
+                  "</span></div>";
+
+                html +=
+                  '<div class="col-2 text-center"><button class="btn btn-link" style="margin: 0;padding: 5px 10px;" data-toggle="modal" data-target="#orderInfo" onclick="getOrderInfo(this)"><i class="fas fa-info-circle" style="margin: 0;font-size: 20px;"></i></button></div>';
+                html += "</div></div>";
+                html += "<hr>";
+                $("#thisRewardUserOrderlist").append(html);
+                $(function () {
+                  $('[data-toggle="tooltip"]').tooltip();
+                });
+              }
+            }
+
+            // Send Reward Email
+            var rewardProd = [];
+            $("#rewardProd li").each(function () {
+              rewardProd.push($(this).find("b").text());
+            });
+            $.ajax({
+              url: ngrokUrl + "getSKRewardUserDataInfo",
+              type: "POST",
+              data: JSON.stringify({
+                currentUser: userName,
+              }),
+              contentType: "application/json",
+              success: function (sickKidsUserData) {
+                var mailData = {
+                  email: sickKidsUserData.email,
+                  name: sickKidsUserData.name,
+                  html: $("#rewardProd").html(),
+                  code: sickKidsUserData.code,
+                  password: sickKidsUserData.password,
+                  amount: sickKidsUserData.amount,
+                };
+              },
+            });
+          },
+        });
+      },
+    });
+  }, 1000);
 }
 
 function getOrderInfo(e) {
@@ -1975,7 +2098,16 @@ function submitNewRewardItem(e) {
             success: function (sickKidsUserData) {
               $("#rewardUsername span").text(sickKidsUserData.email);
               $("#rewardPassword span").text(sickKidsUserData.password);
-              $("#rewardCode span").text(sickKidsUserData.code);
+              if (sickKidsUserData.codeStatus == "Active") {
+                $("#rewardCode span").html(
+                  sickKidsUserData.code +
+                    "<a style='float: right;text-decoration: underline;color: #33b5e5;' dataId=" +
+                    sickKidsUserData._id +
+                    " onclick='deactivateCode(this)'>De-Activate</a>"
+                );
+              } else {
+                $("#rewardCode span").html(sickKidsUserData.code);
+              }
               for (var i = 0; i < sickKidsUserData.rewardProd.length; i++) {
                 var html =
                   "<li><b>" + sickKidsUserData.rewardProd[i].replace(/_/g, " ");
