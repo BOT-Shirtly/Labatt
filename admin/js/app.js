@@ -602,10 +602,19 @@ function getThisRewardUserData(e) {
           sickKidsUserData.code +
             "<a style='float: right;text-decoration: underline;color: #33b5e5;' dataId=" +
             sickKidsUserData._id +
-            " onclick='deactivateCode(this)'>De-Activate</a>"
+            ">" +
+            sickKidsUserData.codeStatus +
+            "</a>"
         );
       } else {
-        $("#rewardCode span").html(sickKidsUserData.code);
+        $("#rewardCode span").html(
+          sickKidsUserData.code +
+            "<a style='float: right;text-decoration: underline;color: #33b5e5;' dataId=" +
+            sickKidsUserData._id +
+            ">" +
+            sickKidsUserData.codeStatus +
+            "</a>"
+        );
       }
 
       for (var i = 0; i < sickKidsUserData.rewardProd.length; i++) {
@@ -1738,7 +1747,7 @@ function renderCSVfile(oEvent) {
             var html =
               '<div class="row lineData" style="position:relative;margin: 0px;padding: 0px 0px;border-bottom: 1px solid #ccc;font-size: 12px;">';
             html +=
-              '<p class="userAlreadyPresent" style="display:none;position: absolute;bottom: 0;margin: 0;padding: 5px 10px;background-color: orange;color: #fff;border-top-right-radius: 5px;"><i class="fas fa-exclamation-triangle"></i> User Already Present</p>';
+              '<p class="userAlreadyPresent" style="display:none;position: absolute;bottom: 0;margin: 0;padding: 5px 10px;background-color: orange;color: #fff;border-top-right-radius: 5px;"><i class="far fa-check-circle"></i> User Updated</p>';
             html +=
               '<p class="userSubmitted" style="display:none;position: absolute;bottom: 0;margin: 0;padding: 5px 10px;background-color: #3fcef1;color: #fff;border-top-right-radius: 5px;"><i class="far fa-check-circle"></i> User Submitted</p>';
             html +=
@@ -1971,6 +1980,182 @@ function saveRewardUser() {
               });
               userThis.addClass("userInsert");
             } else {
+              if (checkSickKidsRewardCustomer[0].codeStatus == "In-Active") {
+                var rewardPin = Math.floor(Math.random() * 10000000 + 1);
+                randomCode = "SKGL" + rewardPin;
+                var dataId = checkSickKidsRewardCustomer[0]._id;
+                var rewardProdArr = currRewardProd;
+                var amountArr = [];
+                for (var i = 0; i < rewardProdArr.length; i++) {
+                  if (rewardProdArr[i].split(" ")[1] == "Tshirt") {
+                    amountArr.push(Number(rewardProdArr[i].split(" ")[0] * 25));
+                  }
+                  if (rewardProdArr[i].split(" ")[1] == "Hat") {
+                    amountArr.push(Number(rewardProdArr[i].split(" ")[0] * 35));
+                  }
+                  if (rewardProdArr[i].split(" ")[1] == "Hoodie") {
+                    amountArr.push(Number(rewardProdArr[i].split(" ")[0] * 50));
+                  }
+                }
+                var totalAmnt = amountArr.reduce((a, b) => a + b, 0);
+                var dataToSend = {
+                  randomCode,
+                  dataId,
+                  rewardProdArr,
+                  totalAmnt,
+                };
+                $.ajax({
+                  url: ngrokUrl + "updateSickKidsRewardCustomerItems",
+                  type: "POST",
+                  async: false,
+                  data: JSON.stringify(dataToSend),
+                  contentType: "application/json",
+                  success: function (updateSickKidsRewardCustomerItems) {
+                    var mailData = {
+                      email: checkSickKidsRewardCustomer[0].email,
+                      name: checkSickKidsRewardCustomer[0].name,
+                      html: userThis.find(".rewardProd").html(),
+                      code: randomCode,
+                      password: checkSickKidsRewardCustomer[0].password,
+                      amount: totalAmnt,
+                    };
+
+                    $.ajax({
+                      url: ngrokUrl + "notifySickKidsCustomerForRewards",
+                      type: "POST",
+                      async: false,
+                      data: JSON.stringify(mailData),
+                      contentType: "application/json",
+                      success: function (notifySickKidsCustomerForRewards) {},
+                    });
+                  },
+                });
+              } else if (
+                checkSickKidsRewardCustomer[0].codeStatus == "Active"
+              ) {
+                var rewardPin = Math.floor(Math.random() * 10000000 + 1);
+                randomCode = "SKGL" + rewardPin;
+                var dataId = checkSickKidsRewardCustomer[0]._id;
+                var oldRewardPrdArr = checkSickKidsRewardCustomer[0].rewardProd;
+                var newRewardProdArr = currRewardProd;
+                var newRewardArr = [];
+                for (var i = 0; i < newRewardProdArr.length; i++) {
+                  var newProd = newRewardProdArr[i].split(" ")[1];
+                  var newProdQty = Number(newRewardProdArr[i].split(" ")[0]);
+                  newRewardArr.push({
+                    prodQty: newProdQty,
+                    prod: newProd,
+                  });
+                }
+                var oldRewardArr = [];
+                for (var j = 0; j < oldRewardPrdArr.length; j++) {
+                  var oldProd = oldRewardPrdArr[j].split(" ")[1];
+                  var oldProdQty = Number(oldRewardPrdArr[j].split(" ")[0]);
+                  oldRewardArr.push({
+                    prodQty: oldProdQty,
+                    prod: oldProd,
+                  });
+                }
+                var mergedArr = oldRewardArr.concat(newRewardArr);
+                if (mergedArr && mergedArr.length) {
+                  var result = [];
+
+                  for (var i = 0; i < mergedArr.length; i++) {
+                    var isExist = result.find(function (ele) {
+                      return ele.prod === mergedArr[i].prod;
+                    });
+
+                    if (isExist) {
+                      continue;
+                    }
+
+                    var countArr = mergedArr.filter(function (ele) {
+                      return ele.prod === mergedArr[i].prod;
+                    });
+
+                    var count = 0;
+                    for (var j = 0; j < countArr.length; j++) {
+                      count += countArr[j].prodQty;
+                    }
+
+                    result.push({
+                      prodQty: count,
+                      prod: mergedArr[i].prod,
+                    });
+                  }
+
+                  var requiredFormatArr = [];
+                  for (var k = 0; k < result.length; k++) {
+                    requiredFormatArr.push(
+                      result[k].prodQty + " " + result[k].prod
+                    );
+                  }
+                }
+
+                userThis.find(".rewardProd").html("");
+                for (var k = 0; k < requiredFormatArr.length; k++) {
+                  var html =
+                    '<span data-toggle="tooltip" title="' +
+                    requiredFormatArr[k] +
+                    '" style="display: inline-block;width: 100px;white-space: nowrap;overflow: hidden !important;text-overflow: ellipsis;">' +
+                    requiredFormatArr[k].replace(/,/g, "<br>") +
+                    "</span><br>";
+                  userThis.find(".rewardProd").append(html);
+                }
+
+                var amountArr = [];
+                for (var i = 0; i < requiredFormatArr.length; i++) {
+                  if (requiredFormatArr[i].split(" ")[1] == "Tshirt") {
+                    amountArr.push(
+                      Number(requiredFormatArr[i].split(" ")[0] * 25)
+                    );
+                  }
+                  if (requiredFormatArr[i].split(" ")[1] == "Hat") {
+                    amountArr.push(
+                      Number(requiredFormatArr[i].split(" ")[0] * 35)
+                    );
+                  }
+                  if (requiredFormatArr[i].split(" ")[1] == "Hoodie") {
+                    amountArr.push(
+                      Number(requiredFormatArr[i].split(" ")[0] * 50)
+                    );
+                  }
+                }
+                var totalAmnt = amountArr.reduce((a, b) => a + b, 0);
+
+                var dataToSend = {
+                  randomCode,
+                  dataId,
+                  rewardProdArr: requiredFormatArr,
+                  totalAmnt,
+                };
+                $.ajax({
+                  url: ngrokUrl + "updateSickKidsRewardCustomerItems",
+                  type: "POST",
+                  async: false,
+                  data: JSON.stringify(dataToSend),
+                  contentType: "application/json",
+                  success: function (updateSickKidsRewardCustomerItems) {
+                    var mailData = {
+                      email: checkSickKidsRewardCustomer[0].email,
+                      name: checkSickKidsRewardCustomer[0].name,
+                      html: userThis.find(".rewardProd").html(),
+                      code: randomCode,
+                      password: checkSickKidsRewardCustomer[0].password,
+                      amount: totalAmnt,
+                    };
+
+                    $.ajax({
+                      url: ngrokUrl + "notifySickKidsCustomerForRewards",
+                      type: "POST",
+                      async: false,
+                      data: JSON.stringify(mailData),
+                      contentType: "application/json",
+                      success: function (notifySickKidsCustomerForRewards) {},
+                    });
+                  },
+                });
+              }
               userThis.addClass("userPresent");
               repeateUser.push("UserPresent");
             }
@@ -1983,7 +2168,7 @@ function saveRewardUser() {
             $("#successMsg")
               .modal("show")
               .find(".modal-body p")
-              .text("Some user are already present in the database !!");
+              .text("Some user updated in the database !!");
           } else {
             $("#successMsg")
               .modal("show")
