@@ -1,0 +1,175 @@
+<div class="container z-depth-1 py-5 px-4 px-lg-0">
+  <!-- Section -->
+  <section>
+    <style>
+      .timeline {
+        position: relative;
+        list-style: none;
+        padding: 1rem 0;
+        margin: 0;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        margin-left: -1px;
+        background-color: #50a1ff;
+      }
+
+      .timeline-element {
+        position: relative;
+        width: 50%;
+        padding: 1rem 0;
+        padding-right: 2.5rem;
+        text-align: right;
+      }
+
+      .timeline-element::before {
+        content: "";
+        position: absolute;
+        right: -8px;
+        top: 1.35rem;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid #50a1ff;
+        background-color: #fff;
+      }
+
+      .timeline-element:nth-child(even)::before {
+        right: auto;
+        left: -8px;
+      }
+
+      .timeline-element:nth-child(even) {
+        margin-left: 50%;
+        padding-left: 2.5rem;
+        padding-right: 0;
+        text-align: left;
+      }
+
+      @media (max-width: 767.98px) {
+        .timeline::before {
+          left: 8px;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .timeline-element {
+          width: 100%;
+          text-align: left;
+          padding-left: 2.5rem;
+          padding-right: 0;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .timeline-element::before {
+          top: 1.25rem;
+          left: 1px;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .timeline-element:nth-child(even) {
+          margin-left: 0rem;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .timeline-element {
+          width: 100%;
+          text-align: left;
+          padding-left: 2.5rem;
+          padding-right: 0;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .timeline-element:nth-child(even)::before {
+          left: 1px;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .timeline-element::before {
+          top: 1.25rem;
+        }
+      }
+    </style>
+    <p class="lead text-center text-muted pt-2 mb-3">
+      <i
+        class="fas fa-check-circle text-success"
+        style="font-size: 45px"
+        id="orderPlaced"
+      ></i>
+      <script>
+        $(document).ready(function () {
+          $("#orderPlaced").addClass("animate__animated animate__rotateIn");
+        });
+      </script>
+    </p>
+    <h3 class="font-weight-bold text-center dark-grey-text pb-2">
+      Order Placed
+    </h3>
+
+    <p class="lead text-center text-muted pt-2">Thank you for your purchase</p>
+
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <ol class="timeline" style="display: inline-block">
+          <li class="timeline-element">
+            <h5 class="font-weight-bold dark-grey-text mb-3">
+              Billing & Shipping Details
+            </h5>
+            <p class="grey-text font-small">
+              <time datetime="2017-02-08">24 Aug 2021</time>
+            </p>
+            <p class="text-muted">
+              John Doe<br />
+              Unit #1 123 Example Street<br />
+              ON 123456, CA<br />
+              youremail@example.com
+            </p>
+          </li>
+
+          <li class="timeline-element">
+            <h4 class="mb-4 h5 font-weight-bold">Summary</h4>
+
+            <hr />
+
+            <dl class="row">
+              <dd class="col-sm-8">
+                Colby Copper Vacuum Bottle With Storage 17oz
+              </dd>
+              <dd class="col-sm-4" style="text-align: right">$ 20</dd>
+            </dl>
+
+            <hr />
+
+            <dl class="row">
+              <dd class="col-sm-8">
+                Hugo Copper Vac Tumbler with Powder Coating 20oz - With Window
+                Box
+              </dd>
+              <dd class="col-sm-4" style="text-align: right">$ 19</dd>
+            </dl>
+
+            <hr />
+
+            <dl class="row">
+              <dt class="col-6">Total</dt>
+              <dt class="col-6" style="text-align: right">$ 39</dt>
+            </dl>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <!-- Section -->
+</div>

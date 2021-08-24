@@ -1129,6 +1129,7 @@ function getInvoices() {
 
 function activateReportBtn() {
   var selectedMonth = $("#reportMonth").val();
+
   if (selectedMonth == "") {
     $("#generateReportBtn").prop("disabled", "true");
   } else {
@@ -1319,7 +1320,11 @@ function generateReport() {
                 var shippingInfo = returnMachineData.Status.Request.ShipTo;
                 var shipmentInfo = returnMachineData.Status.shipmentInfo;
               }
-              trackingData = shipmentInfo.trackingNumber;
+              if (shipmentInfo == undefined) {
+                trackingData = "";
+              } else {
+                trackingData = shipmentInfo.trackingNumber;
+              }
 
               customerFirstName = shippingInfo.FirstName;
               if (shippingInfo.LastName == null) {
@@ -1380,7 +1385,7 @@ function generateReport() {
                 var shippingPriceArr = [];
                 var merchDetailArr = [];
                 var merchAmntArr = [];
-                var totalPaybackToSKArr = [];
+                //var totalPaybackToSKArr = [];
                 for (var i = 0; i < itemsData.length; i++) {
                   if (i == 0) {
                     quantity = itemsData[i].Qty;
@@ -1427,14 +1432,18 @@ function generateReport() {
                     }
                     shippingPriceArr.push(shippingAmnt);
                   }
-                  if (itemsData[i].SKU.split("-")[1] == "64000") {
-                    merchDetails = itemsData[i].Qty + " Adult Shirt ($19.99)";
+                  console.log(itemsData[i].SKU);
+                  if (
+                    itemsData[i].SKU.split("-")[0] == "Adult_Tshirt" ||
+                    itemsData[i].SKU.split("-")[0] == "Youth_Tshirt"
+                  ) {
+                    merchDetails = itemsData[i].Qty + " " + itemsData[i].SKU;
                     merchDetailArr.push(merchDetails);
 
-                    merchAmnt = 19.99 * itemsData[i].Qty;
+                    merchAmnt = 25 * itemsData[i].Qty;
                     merchAmntArr.push(merchAmnt);
 
-                    if (itemsData[i].Size == "2XL") {
+                    /*if (itemsData[i].Size == "2XL") {
                       paybackToSK = 19.99 - 13.46;
                       totalPaybackToSK = paybackToSK * itemsData[i].Qty;
                       totalPaybackToSKArr.push(totalPaybackToSK);
@@ -1458,24 +1467,33 @@ function generateReport() {
                           totalPaybackToSKArr.push(totalPaybackToSK);
                         }
                       }
-                    }
-                  } else if (itemsData[i].SKU.split("-")[1] == "64500B") {
-                    merchDetails = itemsData[i].Qty + " Youth Shirt ($15.99)";
+                    }*/
+                  } else if (itemsData[i].SKU.split("-")[0] == "Hat") {
+                    merchDetails = itemsData[i].Qty + " " + itemsData[i].SKU;
                     merchDetailArr.push(merchDetails);
 
-                    merchAmnt = 15.99 * itemsData[i].Qty;
+                    merchAmnt = 35 * itemsData[i].Qty;
                     merchAmntArr.push(merchAmnt);
 
-                    paybackToSK = 15.99 - 1;
+                    /*paybackToSK = 15.99 - 1;
                     totalPaybackToSK = paybackToSK * itemsData[i].Qty;
-                    totalPaybackToSKArr.push(totalPaybackToSK);
+                    totalPaybackToSKArr.push(totalPaybackToSK);*/
+                  } else if (
+                    itemsData[i].SKU.split("-")[0] == "Adult_Hoodie" ||
+                    itemsData[i].SKU.split("-")[0] == "Youth_Hoodie"
+                  ) {
+                    merchDetails = itemsData[i].Qty + " " + itemsData[i].SKU;
+                    merchDetailArr.push(merchDetails);
+
+                    merchAmnt = 50 * itemsData[i].Qty;
+                    merchAmntArr.push(merchAmnt);
                   }
                 }
-                totalPaybackToSK = totalPaybackToSKArr.reduce(
+                /*totalPaybackToSK = totalPaybackToSKArr.reduce(
                   (a, b) => a + b,
                   0
                 );
-                paybackToSKArr1.push(totalPaybackToSK);
+                paybackToSKArr1.push(totalPaybackToSK);*/
                 merchAmnt = merchAmntArr.reduce((a, b) => a + b, 0);
                 shippingAmnt = shippingPriceArr.reduce((a, b) => a + b, 0);
                 merchDetails = merchDetailArr.join("\n");
@@ -1522,7 +1540,8 @@ function generateReport() {
                   merchAmnt: "$" + merchAmnt.toFixed(2),
                   hstAmnt: "$" + hstAmnt.toFixed(2),
                   shippingAmnt: "$" + shippingAmnt.toFixed(2),
-                  paybackToSK: "$" + totalPaybackToSK.toFixed(2),
+                  //paybackToSK: "$" + totalPaybackToSK.toFixed(2),
+                  paybackToSK: "$0.00",
                   orderNumber: orderNumber,
                   hstTaxRegion: customerProvience,
                   hstPercent: hstPercent + "%",
@@ -1563,10 +1582,14 @@ function generateReport() {
                     shippingAmnt = 21.95 + extraQuantityPrice;
                   }
                 }
-                if (itemsData.SKU.split("-")[1] == "64000") {
-                  merchDetails = itemsData.Qty + " Adult Shirt ($19.99)";
-                  merchAmnt = 19.99 * itemsData.Qty;
-                  if (itemsData.Size == "2XL") {
+                if (
+                  itemsData.SKU.split("-")[0] == "Adult_Tshirt" ||
+                  itemsData.SKU.split("-")[0] == "Youth_Tshirt"
+                ) {
+                  merchDetails = itemsData.Qty + " " + itemsData.SKU;
+                  merchAmnt = 25 * itemsData.Qty;
+
+                  /*if (itemsData.Size == "2XL") {
                     paybackToSK = 19.99 - 13.46;
                     totalPaybackToSK = paybackToSK * itemsData.Qty;
                   } else {
@@ -1585,14 +1608,20 @@ function generateReport() {
                         totalPaybackToSK = paybackToSK * itemsData.Qty;
                       }
                     }
-                  }
-                } else if (itemsData.SKU.split("-")[1] == "64500B") {
-                  merchDetails = itemsData.Qty + " Youth Shirt ($15.99)";
-                  merchAmnt = 15.99 * itemsData.Qty;
-                  paybackToSK = 15.99 - 1;
-                  totalPaybackToSK = paybackToSK * itemsData.Qty;
+                  }*/
+                } else if (itemsData.SKU.split("-")[1] == "Hat") {
+                  merchDetails = itemsData.Qty + " " + itemsData.SKU;
+                  merchAmnt = 35 * itemsData.Qty;
+                  /*paybackToSK = 15.99 - 1;
+                  totalPaybackToSK = paybackToSK * itemsData.Qty;*/
+                } else if (
+                  itemsData.SKU.split("-")[0] == "Adult_Hoodie" ||
+                  itemsData.SKU.split("-")[0] == "Youth_Hoodie"
+                ) {
+                  merchDetails = itemsData.Qty + " " + itemsData.SKU;
+                  merchAmnt = 50 * itemsData.Qty;
                 }
-                paybackToSKArr1.push(totalPaybackToSK);
+                /*paybackToSKArr1.push(totalPaybackToSK);*/
                 hstAmnt = (hstPercent * (merchAmnt + shippingAmnt)) / 100;
                 saleAmnt = merchAmnt + shippingAmnt + hstAmnt;
 
@@ -1635,7 +1664,8 @@ function generateReport() {
                   merchAmnt: "$" + merchAmnt,
                   hstAmnt: "$" + hstAmnt.toFixed(2),
                   shippingAmnt: "$" + shippingAmnt,
-                  paybackToSK: "$" + totalPaybackToSK.toFixed(2),
+                  //paybackToSK: "$" + totalPaybackToSK.toFixed(2),
+                  paybackToSK: "$0.00",
                   orderNumber: orderNumber,
                   hstTaxRegion: customerProvience,
                   hstPercent: hstPercent + "%",

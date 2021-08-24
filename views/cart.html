@@ -1,0 +1,164 @@
+<div class="container mt-5 ng-scope">
+  <!--Section: Content-->
+  <section class="dark-grey-text">
+    <h3 class="font-weight-bold mb-5 text-center">Cart Summary</h3>
+    <!-- Shopping Cart table -->
+    <div class="table-responsive mb-3">
+      <table class="table product-table mb-0">
+        <!-- Table head -->
+        <thead class="mdb-color lighten-5">
+          <tr>
+            <th class="font-weight-bold">
+              <strong>Preview</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>Product</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>Color</strong>
+            </th>
+            <th></th>
+            <th class="font-weight-bold">
+              <strong>Price</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>QTY</strong>
+            </th>
+            <th class="font-weight-bold">
+              <strong>Amount</strong>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <!-- /.Table head -->
+
+        <!-- Table body -->
+        <tbody>
+          <!-- First row -->
+          <tr>
+            <th scope="row">
+              <img src="../img/Bottle.png" alt="" class="img-fluid z-depth-0" />
+            </th>
+            <td>
+              <h5 class="mt-3">
+                <strong>Colby Copper Vacuum Bottle With Storage 17oz</strong>
+              </h5>
+            </td>
+            <td>White</td>
+            <td></td>
+            <td>$20</td>
+            <td>
+              <div class="def-number-input number-input safari_only">
+                <button
+                  onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                  class="minus"
+                ></button>
+                <input
+                  class="quantity"
+                  min="0"
+                  name="quantity"
+                  value="1"
+                  type="number"
+                />
+                <button
+                  onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                  class="plus"
+                ></button>
+              </div>
+            </td>
+            <td class="font-weight-bold">
+              <strong>$20</strong>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary labattaBtn-outline"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Remove item"
+              >
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+          <!-- /.First row -->
+
+          <!-- Second row -->
+          <tr>
+            <th scope="row">
+              <img
+                src="../img/Tumbler.png"
+                alt=""
+                class="img-fluid z-depth-0"
+              />
+            </th>
+            <td>
+              <h5 class="mt-3">
+                <strong
+                  >Hugo Copper Vac Tumbler with Powder Coating 20oz - With
+                  Window Box</strong
+                >
+              </h5>
+            </td>
+            <td>Red</td>
+            <td></td>
+            <td>$19</td>
+            <td>
+              <div class="def-number-input number-input safari_only">
+                <button
+                  onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                  class="minus"
+                ></button>
+                <input
+                  class="quantity"
+                  min="0"
+                  name="quantity"
+                  value="1"
+                  type="number"
+                />
+                <button
+                  onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                  class="plus"
+                ></button>
+              </div>
+            </td>
+            <td class="font-weight-bold">
+              <strong>$19</strong>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary labattaBtn-outline"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Remove item"
+              >
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+          <!-- /.Second row -->
+        </tbody>
+        <!-- /.Table body -->
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-xs-12"></div>
+      <div class="col-lg-6 col-xs-12">
+        <h3 style="float: right" class="mb-4">
+          <strong>Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>$39
+        </h3>
+        <button
+          type="button"
+          class="btn btn-primary btn-block labattaBtn"
+          ui-sref="shipping"
+        >
+          Complete purchase
+          <i class="fas fa-angle-right right"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.Shopping Cart table -->
+  </section>
+  <!--Section: Content-->
+</div>

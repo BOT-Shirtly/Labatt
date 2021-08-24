@@ -1,51 +1,184 @@
-<div class="container">
-  <section
-    class="homeDecor"
-    style="font-family: 'Montserrat Regular', sans-serif; line-height: 34px"
-  >
-    <div class="row" style="background-color: #fff; color: #fff">
-      <div class="container text-left">
-        <h1 class="text-center" style="color: #00acd7">Shipping</h1>
+<div class="container mt-5 ng-scope">
+  <!--Section: Content-->
+  <section class="dark-grey-text">
+    <h3 class="font-weight-bold mb-5 text-center">Billing & Shipping</h3>
+    <div class="card" style="box-shadow: 0 0">
+      <div class="card-body">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-lg-8">
+            <!-- Pills panels -->
+            <div class="tab-content">
+              <!--Panel 1-->
+              <div
+                class="tab-pane fade in show active"
+                id="tabCheckoutBilling123"
+                role="tabpanel"
+              >
+                <!--Card content-->
+                <form>
+                  <!--Grid row-->
+                  <div class="row">
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4">
+                      <!--firstName-->
+                      <label for="firstName" class="">First name</label>
+                      <input type="text" id="firstName" class="form-control" />
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-2">
+                      <!--lastName-->
+                      <label for="lastName" class="">Last name</label>
+                      <input type="text" id="lastName" class="form-control" />
+                    </div>
+                    <!--Grid column-->
+                  </div>
+                  <!--Grid row-->
+
+                  <!--email-->
+                  <label for="email" class="">Email</label>
+                  <input
+                    type="text"
+                    id="email"
+                    class="form-control mb-4"
+                    placeholder="youremail@example.com"
+                  />
+
+                  <!--address-->
+                  <label for="address" class="">Address</label>
+                  <input
+                    type="text"
+                    id="address"
+                    class="form-control mb-4"
+                    placeholder="1234 Main St"
+                  />
+
+                  <!--address-2-->
+                  <label for="address-2" class="">Address 2 (optional)</label>
+                  <input
+                    type="text"
+                    id="address-2"
+                    class="form-control mb-4"
+                    placeholder="Apartment or suite"
+                  />
+
+                  <!--Grid row-->
+                  <div class="row">
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4">
+                      <label for="country">Country</label>
+                      <select
+                        class="custom-select d-block w-100"
+                        id="country"
+                        required
+                      >
+                        <option value="">Choose...</option>
+                        <option>Canada</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please select a valid country.
+                      </div>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                      <label for="state">State</label>
+                      <select
+                        class="custom-select d-block w-100"
+                        id="state"
+                        required
+                      >
+                        <option value="">Choose...</option>
+                        <option>Ontario</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please provide a valid state.
+                      </div>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                      <label for="zip">Zip</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="zip"
+                        placeholder=""
+                        required
+                      />
+                      <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+                    <!--Grid column-->
+                  </div>
+                  <!--Grid row-->
+                </form>
+              </div>
+              <!--/.Panel 1-->
+            </div>
+            <!-- Pills panels -->
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 mb-5">
+            <button
+              class="btn btn-primary btn-lg btn-block labattaBtn mb-2"
+              type="submit"
+              ui-sref="order-complete"
+            >
+              Place order&nbsp;<i class="fas fa-angle-right right"></i>
+            </button>
+
+            <!--Card-->
+            <div
+              class="card z-depth-4 border border-light rounded-0"
+              style="box-shadow: 0 0px 10px 0 rgb(0 0 0 / 10%)"
+            >
+              <!--Card content-->
+              <div class="card-body">
+                <h4 class="mb-4 mt-1 h5 text-center font-weight-bold">
+                  Summary
+                </h4>
+
+                <hr />
+
+                <dl class="row">
+                  <dd class="col-sm-8">
+                    Colby Copper Vacuum Bottle With Storage 17oz
+                  </dd>
+                  <dd class="col-sm-4" style="text-align: right">$ 20</dd>
+                </dl>
+
+                <hr />
+
+                <dl class="row">
+                  <dd class="col-sm-8">
+                    Hugo Copper Vac Tumbler with Powder Coating 20oz - With
+                    Window Box
+                  </dd>
+                  <dd class="col-sm-4" style="text-align: right">$ 19</dd>
+                </dl>
+
+                <hr />
+
+                <dl class="row">
+                  <dt class="col-6">Total</dt>
+                  <dt class="col-6" style="text-align: right">$ 39</dt>
+                </dl>
+              </div>
+            </div>
+            <!--/.Card-->
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
       </div>
     </div>
-    <hr style="margin-top: 0px" />
-    <p style="font-weight: bold">
-      Shipping is with Canada Post tracked package.
-    </p>
-    <p>
-      As soon as we start packing your order, we will send you a shipping
-      confirmation email with the delivery details and a link to track your
-      parcel online.
-    </p>
-    <p>
-      Please note, that it can take some time before the tracking information is
-      uploaded to Canada Post.
-    </p>
-
-    <p style="font-weight: bold">Shipping Times</p>
-    <table class="table" style="font-family: 'Montserrat Regular', sans-serif">
-      <thead class="black white-text">
-        <tr>
-          <th scope="col">REGION</th>
-          <th scope="col">TIME</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"><i class="fab fa-canadian-maple-leaf"></i> CANADA</th>
-          <td>2 - 6 Business Days</td>
-        </tr>
-        <tr>
-          <th scope="row"><i class="fas fa-flag-usa"></i> USA</th>
-          <td>2 - 10 Business Days</td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <i class="fas fa-globe-africa"></i> Everywhere else
-          </th>
-          <td>7 - 15 Business Days</td>
-        </tr>
-      </tbody>
-    </table>
   </section>
+  <!--Section: Content-->
 </div>
