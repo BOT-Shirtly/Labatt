@@ -112,12 +112,23 @@
                 ><span class="badge badge-danger ml-2">2</span></a
               >
             </li>
-            <li class="nav-item me-3 me-lg-0" id="user">
-              <a class="nav-link"
-                ><i class="far fa-user"></i>&nbsp;<span style="font-size: 14px"
-                  >John Doe</span
-                ></a
+            <li>
+              <button
+                class="btn btn-primary dropdown-toggle mr-4"
+                type="button"
+                id="userDropDown"
               >
+                <i class="far fa-user"></i>&nbsp;&nbsp;John Doe
+              </button>
+
+              <div class="dropdown-menu">
+                <a class="dropdown-item" ui-sref="my-orders"
+                  ><i class="fas fa-boxes"></i>&nbsp;&nbsp;My Orders</a
+                >
+                <a class="dropdown-item" onclick="showSignIn()"
+                  ><i class="fas fa-power-off"></i>&nbsp;&nbsp;Log Out</a
+                >
+              </div>
             </li>
           </ul>
         </div>
@@ -301,6 +312,16 @@
       function hideSignInModal() {
         $("#signInModal").modal("hide");
       }
+      function showSignIn() {
+        $("#signInModal").modal("show");
+      }
+      $(document).click(function (e) {
+        if (e.target.id == "userDropDown") {
+          $(".dropdown-menu").addClass("menuOpen");
+        } else {
+          $(".dropdown-menu").removeClass("menuOpen");
+        }
+      });
     </script>
   </body>
 </html>
