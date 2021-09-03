@@ -278,6 +278,9 @@ footer ul li a {
 .selectedPartner {
   border: 2px solid #01519c;
 }
+#prodSizeChart {
+  cursor: pointer;
+}
 /*------------------------ Payment CSS ------------------------------*/
 :root {
   --purple: #1253bd;
