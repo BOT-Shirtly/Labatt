@@ -36,5 +36,5 @@ $(document).ready(function () {
     });
 });
 function openProduct(product) {
-  window.location.replace("/LabattLabatt/#/product-detail?prod=" + product);
+  window.location.replace("/Labatt/#/product-detail?prod=" + product);
 }
