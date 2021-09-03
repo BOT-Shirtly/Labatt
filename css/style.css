@@ -5,7 +5,7 @@ body {
 }
 
 .uiView {
-  padding-top: 163px;
+  padding-top: 162px;
 }
 .timeline::before {
   background-color: #01519c !important;
@@ -168,7 +168,7 @@ select {
   border-bottom: 1px solid #ccc;
   height: 50px;
   display: block;
-  margin-top: 113px;
+  margin-top: 112px;
   width: 100%;
   background-color: #fff;
   padding: 10px 0;
@@ -194,8 +194,8 @@ select {
 }
 .bannerImage {
   width: 100%;
-  background-image: url("../img/banner1.jpeg");
-  background-position: 50% 20%;
+  background-image: url("../img/banner1.png");
+  background-position: 50% 25%;
   background-size: cover;
   background-repeat: no-repeat;
   margin-bottom: 20px;
@@ -221,6 +221,7 @@ select {
 .productDetails .card a {
   font-size: 16px;
 }
+
 footer p {
   font-size: 16px;
 }
@@ -238,4 +239,165 @@ footer ul li:hover {
 }
 footer ul li a {
   color: #000;
+}
+.partnerTag {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+}
+.partnerTag img {
+  width: 35px;
+}
+.partnerTag:hover {
+  background-color: #f1f1f1;
+}
+.selectedPartner {
+  border: 2px solid #01519c;
+}
+/*------------------------ Payment CSS ------------------------------*/
+:root {
+  --purple: #1253bd;
+  --purple2: #4285f4;
+  --white: #f6d3fd;
+  --height: 222px;
+  --width: 350px;
+  --font: "Overpass Mono", monospaced;
+  --masterFont: "Raleway", sans-serif;
+}
+
+.credit-card {
+  width: 250px;
+  height: 150px;
+  background: linear-gradient(90deg, var(--purple), var(--purple2));
+  border-radius: 10px;
+  /* box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); */
+  margin: 10px auto;
+  position: relative;
+  /* filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.6)); */
+}
+
+.card__figure {
+  position: relative;
+  height: 40px;
+  margin: 0;
+}
+
+.card__figure--logo {
+  --widthLogo: 130px;
+  width: var(--widthLogo);
+  position: absolute;
+  right: 50%;
+  transform: translate(calc(var(--widthLogo) / 2), 20px);
+}
+
+.card__reader {
+  width: 50px;
+  height: 40px;
+  background: radial-gradient(#d9a56c, #b18457);
+  border-radius: 5px;
+  position: absolute;
+  top: 60px;
+  left: -15px;
+  transform: translate(33px, -40px);
+  overflow: hidden;
+}
+
+.card__reader--risk {
+  width: 50px;
+  height: 40px;
+  border-radius: 13px;
+  background: transparent;
+  border: 1px solid #666;
+  position: absolute;
+  z-index: 0;
+}
+
+.card__reader--risk-one {
+  transform: translate(37px, 15px);
+}
+
+.card__reader--risk-two {
+  transform: translate(15px, 30px);
+}
+
+.card__reader--risk-three {
+  transform: translate(-37px, -15px);
+}
+
+.card__reader--risk-four {
+  transform: translate(-15px, -30px);
+}
+
+.card__number {
+  position: absolute;
+  bottom: 35px;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font);
+  font-size: 1.15em;
+  font-weight: normal;
+  color: var(--white);
+  letter-spacing: 2.5px;
+  z-index: 1;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.card__dates {
+  position: absolute;
+  width: 40%;
+  font-size: 0.9em;
+  display: flex;
+  justify-content: space-between;
+  color: var(--white);
+  font-family: var(--font);
+  bottom: 30px;
+  transform: translate(60px, 0px);
+}
+
+.card__dates span {
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.card__name {
+  position: absolute;
+  bottom: -10px;
+  text-transform: uppercase;
+  left: 20px;
+  width: 100%;
+  font-family: var(--font);
+  font-size: 0.9em;
+  font-weight: normal;
+  color: var(--white);
+  letter-spacing: 2.5px;
+  z-index: 1;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.forwardslash {
+  float: left;
+  position: relative;
+  padding-top: 5px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.mx-05 {
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+}
+#basic-addon2 {
+  height: 35.27px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#basic-addon1 {
+  height: 35px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }

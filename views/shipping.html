@@ -128,10 +128,11 @@
           <div class="col-lg-4 mb-5">
             <button
               class="btn btn-primary btn-lg btn-block labattaBtn mb-2"
-              type="submit"
-              ui-sref="order-complete"
+              data-toggle="modal"
+              data-target="#payment-modal"
+              onclick="paymentModal('show')"
             >
-              Place order&nbsp;<i class="fas fa-angle-right right"></i>
+              Payment&nbsp;<i class="fas fa-angle-right right"></i>
             </button>
 
             <!--Card-->
@@ -157,10 +158,7 @@
                 <hr />
 
                 <dl class="row">
-                  <dd class="col-sm-8">
-                    Hugo Copper Vac Tumbler with Powder Coating 20oz - With
-                    Window Box
-                  </dd>
+                  <dd class="col-sm-8">Budweiser Hoodie</dd>
                   <dd class="col-sm-4" style="text-align: right">$ 19</dd>
                 </dl>
 
@@ -182,3 +180,183 @@
   </section>
   <!--Section: Content-->
 </div>
+
+<!-- Payment Modal -->
+<div
+  class="modal fade"
+  id="payment-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-md" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
+
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          onclick="paymentModal('hide')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="credit-card z-depth-1-half mb-4" id="paymentCard">
+          <div class="card__reader">
+            <div class="card__reader--risk card__reader--risk-one"></div>
+            <div class="card__reader--risk card__reader--risk-two"></div>
+            <div class="card__reader--risk card__reader--risk-three"></div>
+            <div class="card__reader--risk card__reader--risk-four"></div>
+          </div>
+          <p class="card__number">1234 5678 9121 1562</p>
+          <div class="card__dates">
+            <span class="card__dates--first">01/21</span>
+          </div>
+          <p class="card__name">JOHN DOE</p>
+          <p></p>
+        </div>
+        <script>
+          $(document).ready(function () {
+            $("#paymentCard").addClass(
+              "animate__animated animate__slideInLeft animate__faster"
+            );
+          });
+        </script>
+
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Default input -->
+              <label for="exampleForm3" class="mb-1 mt-3">Card number</label>
+              <input
+                type="text"
+                id="exampleForm3"
+                class="form-control"
+                value="1234 5678 9121 1562"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="exampleForm2" class="mb-1 mt-3"
+                >Expiration (MM/YYYY)</label
+              >
+              <div class="d-flex justify-content-between">
+                <select
+                  class="browser-default custom-select"
+                  style="width: 50%"
+                >
+                  <option selected value="">MM</option>
+                  <option value="1" selected>01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">7</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <div class="forwardslash">/</div>
+                <select
+                  class="browser-default custom-select"
+                  style="width: 50%"
+                >
+                  <option selected value="">YYYY</option>
+                  <option value="2021" selected>2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <!-- Default input -->
+              <label for="exampleForm2" class="mb-1 mt-3">Name on card</label>
+              <input
+                type="text"
+                id="exampleForm2"
+                class="form-control"
+                value="John Doe"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="basic-addon3" class="mb-1 mt-3">Card Code CVC</label>
+              <div class="input-group mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  aria-label="Card Code CVC"
+                  aria-describedby="basic-addon3"
+                  value="123"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2"
+                    ><i class="fas fa-credit-card mx-05"></i
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <p class="font-weight-bold float-right my-2">Total:</p>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">$ USD</span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  aria-label="150640"
+                  value="39"
+                  aria-describedby="basic-addon2"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer float-right">
+        <button
+          type="button"
+          class="btn btn-primary labattaBtn-outline"
+          ui-sref="order-complete"
+          onclick="paymentModal('hide')"
+        >
+          Place Order&nbsp;<i class="fas fa-angle-right right"></i>
+        </button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Central Modal Form-->
+<script>
+  function paymentModal(visibility) {
+    $("#payment-modal").modal(visibility);
+  }
+</script>

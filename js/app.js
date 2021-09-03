@@ -15,6 +15,11 @@ routerApp.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "./views/products.html",
       controller: "productsController",
     })
+    .state("partners", {
+      url: "/partners",
+      templateUrl: "./views/partners.html",
+      controller: "partnersController",
+    })
     .state("product-detail", {
       url: "/product-detail",
       templateUrl: "./views/product-detail.html",
@@ -83,5 +88,9 @@ routerApp.controller(
 );
 routerApp.controller(
   "shippingController",
+  function ($scope, $state, $timeout) {}
+);
+routerApp.controller(
+  "partnersController",
   function ($scope, $state, $timeout) {}
 );
