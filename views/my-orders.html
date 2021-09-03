@@ -8,26 +8,14 @@
         <!-- Table head -->
         <thead class="mdb-color lighten-5">
           <tr>
+            <th>Index</th>
             <th class="font-weight-bold">
-              <strong>Preview</strong>
+              <strong>Order #</strong>
             </th>
             <th class="font-weight-bold">
-              <strong>Product</strong>
+              <strong>Submit Date</strong>
             </th>
-            <th class="font-weight-bold">
-              <strong>Color</strong>
-            </th>
-            <th></th>
-            <th class="font-weight-bold">
-              <strong>Price</strong>
-            </th>
-            <th class="font-weight-bold">
-              <strong>QTY</strong>
-            </th>
-            <th class="font-weight-bold">
-              <strong>Amount</strong>
-            </th>
-            <th></th>
+            <th style="text-align: right;">Order Info</th>
           </tr>
         </thead>
         <!-- /.Table head -->
@@ -36,124 +24,61 @@
         <tbody>
           <!-- First row -->
           <tr>
-            <th scope="row">
-              <img src="img/Bottle.png" alt="" class="img-fluid z-depth-0" />
-            </th>
             <td>
               <h5 class="mt-3">
-                <strong>Colby Copper Vacuum Bottle With Storage 17oz</strong>
+                <strong></strong>1.</strong>
               </h5>
             </td>
-            <td>White</td>
-            <td></td>
-            <td>$20</td>
             <td>
-              <div class="def-number-input number-input safari_only">
-                <button
-                  onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                  class="minus"
-                ></button>
-                <input
-                  class="quantity"
-                  min="0"
-                  name="quantity"
-                  value="1"
-                  type="number"
-                />
-                <button
-                  onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                  class="plus"
-                ></button>
-              </div>
+              <h5 class="mt-3">
+                <strong></strong>Labatt-123456</strong>
+              </h5>
             </td>
-            <td class="font-weight-bold">
-              <strong>$20</strong>
-            </td>
-            <td>
+            <td><h5 class="mt-3">
+                <strong></strong>Sep 3, 2021</strong>
+              </h5></td>
+            <td style="text-align: right;">
               <button
                 type="button"
                 class="btn btn-sm btn-primary labattaBtn-outline"
                 data-toggle="tooltip"
                 data-placement="top"
-                title="Remove item"
+                title="Info"
               >
-                <i class="far fa-trash-alt"></i>
+                Info
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h5 class="mt-3">
+                <strong></strong>2.</strong>
+              </h5>
+            </td>
+            <td>
+              <h5 class="mt-3">
+                <strong></strong>Labatt-456789</strong>
+              </h5>
+            </td>
+            <td><h5 class="mt-3">
+                <strong></strong>Sep 3, 2021</strong>
+              </h5></td>
+            <td style="text-align: right;">
+              <button
+                type="button"
+                class="btn btn-sm btn-primary labattaBtn-outline"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Info"
+              >
+                Info
               </button>
             </td>
           </tr>
           <!-- /.First row -->
-
-          <!-- Second row -->
-          <tr>
-            <th scope="row">
-              <img
-                src="img/Budweiser-Hoodie.jpeg"
-                alt=""
-                class="img-fluid z-depth-0"
-              />
-            </th>
-            <td>
-              <h5 class="mt-3">
-                <strong>Budweiser Hoodie</strong>
-              </h5>
-            </td>
-            <td>Red</td>
-            <td></td>
-            <td>$19</td>
-            <td>
-              <div class="def-number-input number-input safari_only">
-                <button
-                  onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                  class="minus"
-                ></button>
-                <input
-                  class="quantity"
-                  min="0"
-                  name="quantity"
-                  value="1"
-                  type="number"
-                />
-                <button
-                  onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                  class="plus"
-                ></button>
-              </div>
-            </td>
-            <td class="font-weight-bold">
-              <strong>$19</strong>
-            </td>
-            <td>
-              <button
-                type="button"
-                class="btn btn-sm btn-primary labattaBtn-outline"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="Remove item"
-              >
-                <i class="far fa-trash-alt"></i>
-              </button>
-            </td>
-          </tr>
-          <!-- /.Second row -->
         </tbody>
         <!-- /.Table body -->
       </table>
-    </div>
-    <div class="row">
-      <div class="col-lg-6 col-xs-12"></div>
-      <div class="col-lg-6 col-xs-12">
-        <h3 style="float: right" class="mb-4">
-          <strong>Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>$39
-        </h3>
-        <button
-          type="button"
-          class="btn btn-primary btn-block labattaBtn"
-          ui-sref="shipping"
-        >
-          Complete purchase
-          <i class="fas fa-angle-right right"></i>
-        </button>
-      </div>
     </div>
     <!-- /.Shopping Cart table -->
   </section>
