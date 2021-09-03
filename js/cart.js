@@ -21,10 +21,10 @@ $(document).ready(function () {
       html +=
         '<img src="' +
         cartData[i].prodImage +
-        '" alt="" class="img-fluid z-depth-0" />';
+        '" alt="" class="img-fluid z-depth-0" style="width:100px"/>';
       html += "</th>";
       html += "<td>";
-      html += '<h6 class="mt-3">';
+      html += "<h6>";
       html += "<strong>" + cartData[i].prodName + "</strong>";
       html += "</h6>";
       html += "</td>";
