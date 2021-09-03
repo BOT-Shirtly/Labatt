@@ -17,7 +17,9 @@
             <th class="font-weight-bold">
               <strong>Color</strong>
             </th>
-            <th></th>
+            <th class="font-weight-bold">
+              <strong>Size</strong>
+            </th>
             <th class="font-weight-bold">
               <strong>Price</strong>
             </th>
@@ -33,7 +35,7 @@
         <!-- /.Table head -->
 
         <!-- Table body -->
-        <tbody>
+        <tbody id="cartItems">
           <!-- First row -->
           <tr>
             <th scope="row">
@@ -143,12 +145,15 @@
       <div class="col-lg-6 col-xs-12"></div>
       <div class="col-lg-6 col-xs-12">
         <h3 style="float: right" class="mb-4">
-          <strong>Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>$39
+          <strong>Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>$<span
+            id="totalPayableAmnt"
+          ></span>
         </h3>
         <button
           type="button"
           class="btn btn-primary btn-block labattaBtn"
           ui-sref="shipping"
+          id="completePurchase"
         >
           Complete purchase
           <i class="fas fa-angle-right right"></i>
@@ -159,3 +164,4 @@
   </section>
   <!--Section: Content-->
 </div>
+<script type="text/javascript" src="js/cart.js"></script>

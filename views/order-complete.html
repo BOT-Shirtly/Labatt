@@ -128,7 +128,7 @@
               Billing & Shipping Details
             </h5>
             <p class="grey-text font-small">
-              <time datetime="2017-02-08">24 Aug 2021</time>
+              <time datetime="2017-02-08">4 Sep 2021</time>
             </p>
             <p class="text-muted">
               John Doe<br />
@@ -142,26 +142,13 @@
             <h4 class="mb-4 h5 font-weight-bold">Summary</h4>
 
             <hr />
-
-            <dl class="row">
-              <dd class="col-sm-8">
-                Colby Copper Vacuum Bottle With Storage 17oz
-              </dd>
-              <dd class="col-sm-4" style="text-align: right">$ 20</dd>
-            </dl>
-
-            <hr />
-
-            <dl class="row">
-              <dd class="col-sm-8">Budweiser Hoodie</dd>
-              <dd class="col-sm-4" style="text-align: right">$ 19</dd>
-            </dl>
-
-            <hr />
+            <div id="orderCompleteSummaryItems"></div>
 
             <dl class="row">
               <dt class="col-6">Total</dt>
-              <dt class="col-6" style="text-align: right">$ 39</dt>
+              <dt class="col-6" style="text-align: right">
+                $ <span id="orderCompleteFinalAmntPayable"></span>
+              </dt>
             </dl>
           </li>
         </ol>
@@ -170,3 +157,4 @@
   </section>
   <!-- Section -->
 </div>
+<script type="text/javascript" src="js/order-complete.js"></script>

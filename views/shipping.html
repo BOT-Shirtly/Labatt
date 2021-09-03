@@ -131,6 +131,7 @@
               data-toggle="modal"
               data-target="#payment-modal"
               onclick="paymentModal('show')"
+              id="paymentBtn"
             >
               Payment&nbsp;<i class="fas fa-angle-right right"></i>
             </button>
@@ -147,26 +148,13 @@
                 </h4>
 
                 <hr />
-
-                <dl class="row">
-                  <dd class="col-sm-8">
-                    Colby Copper Vacuum Bottle With Storage 17oz
-                  </dd>
-                  <dd class="col-sm-4" style="text-align: right">$ 20</dd>
-                </dl>
-
-                <hr />
-
-                <dl class="row">
-                  <dd class="col-sm-8">Budweiser Hoodie</dd>
-                  <dd class="col-sm-4" style="text-align: right">$ 19</dd>
-                </dl>
-
-                <hr />
+                <div id="summaryItems"></div>
 
                 <dl class="row">
                   <dt class="col-6">Total</dt>
-                  <dt class="col-6" style="text-align: right">$ 39</dt>
+                  <dt class="col-6" style="text-align: right">
+                    $ <span id="finalAmntPayable"></span>
+                  </dt>
                 </dl>
               </div>
             </div>
@@ -329,9 +317,10 @@
                   type="text"
                   class="form-control"
                   aria-label="150640"
-                  value="39"
+                  value="0"
                   aria-describedby="basic-addon2"
                   disabled
+                  id="finalAmountPayable"
                 />
               </div>
             </div>
@@ -355,8 +344,4 @@
   </div>
 </div>
 <!-- Central Modal Form-->
-<script>
-  function paymentModal(visibility) {
-    $("#payment-modal").modal(visibility);
-  }
-</script>
+<script type="text/javascript" src="js/shipping.js"></script>

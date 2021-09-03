@@ -109,7 +109,9 @@
             <li class="nav-item me-3">
               <a class="nav-link" ui-sref="cart" style="position: relative"
                 ><i class="fas fa-shopping-cart"></i
-                ><span class="badge badge-danger ml-2">2</span></a
+                ><span class="badge badge-danger ml-2" id="cartCount"
+                  >0</span
+                ></a
               >
             </li>
             <li>
@@ -308,6 +310,16 @@
     <script>
       $(document).ready(function () {
         $("#signInModal").modal("show");
+        var itemsInCart = JSON.parse(localStorage.getItem("Labatt_Cart"));
+        if (
+          itemsInCart == null ||
+          itemsInCart == undefined ||
+          itemsInCart.length == 0
+        ) {
+          $("#cartCount").text(0);
+        } else {
+          $("#cartCount").text(itemsInCart.length);
+        }
       });
       function hideSignInModal() {
         $("#signInModal").modal("hide");

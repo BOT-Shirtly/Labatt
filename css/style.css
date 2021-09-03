@@ -280,6 +280,28 @@ footer ul li a {
 }
 #prodSizeChart {
   cursor: pointer;
+  display: none;
+  color: #01519c;
+  text-decoration: underline;
+}
+#cartItems h4 {
+  color: #8c8989;
+  font-size: 22px;
+  text-align: center;
+  margin: 20px 0;
+}
+.toast {
+  position: fixed;
+  bottom: 15px;
+  width: 300px;
+  right: 0;
+  left: 0;
+  text-align: center;
+  margin: auto;
+  z-index: 99999;
+  background-color: #01519c;
+  color: #fff;
+  opacity: 0.9;
 }
 /*------------------------ Payment CSS ------------------------------*/
 :root {

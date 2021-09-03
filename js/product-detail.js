@@ -9,8 +9,6 @@ $(document).ready(function () {
       var url_string = window.location;
       var url = new URL(url_string);
       var selectedProduct = url.hash.split("?")[1].split("=")[1].trim();
-      console.log(selectedProduct);
-      console.log(productsData);
       for (var i = 0; i < productsData.length; i++) {
         if (productsData[i].productLink === selectedProduct) {
           var prodImage = productsData[i].productImage;
@@ -20,6 +18,11 @@ $(document).ready(function () {
           var prodDecorationArea = productsData[i].decorationArea;
           var prodArtPlacement = productsData[i].artPlacement;
           var prodFulfilmentTimes = productsData[i].fulfillmentTimes;
+          var prodSizeChartLink = productsData[i].producSizeChart;
+          if (prodSizeChartLink != "") {
+            $("#prodSizeChart").css("display", "inline-block");
+            $("#prodSizeChart").attr("href", prodSizeChartLink);
+          }
           var prodSizes = productsData[i].productSize;
           var prodColors = productsData[i].productColor;
 
@@ -89,3 +92,57 @@ $(document).ready(function () {
       }
     });
 });
+
+function addToCart() {
+  $(".toast").toast("show");
+  var prodImage = $("#prodImage").attr("src");
+  var prodName = $("#prodName").text();
+  var prodPrice = $("#prodPrice").text();
+  var prodQty = 1;
+  $("#prodColorList .col-12").each(function () {
+    if ($(this).find("input").prop("checked")) {
+      prodColor = $(this).find("label").text();
+    }
+  });
+  $("#prodSizeList .col-12").each(function () {
+    if ($(this).find("input").prop("checked")) {
+      prodSize = $(this).find("label").text();
+    }
+  });
+
+  var itemsInCart = JSON.parse(localStorage.getItem("Labatt_Cart"));
+  if (
+    itemsInCart == null ||
+    itemsInCart == undefined ||
+    itemsInCart.length == 0
+  ) {
+    var cartData = [
+      {
+        prodImage,
+        prodName,
+        prodPrice,
+        prodColor,
+        prodSize,
+        prodQty,
+      },
+    ];
+    localStorage.setItem("Labatt_Cart", JSON.stringify(cartData));
+    $("#cartCount").text(
+      JSON.parse(localStorage.getItem("Labatt_Cart")).length
+    );
+  } else {
+    var cartData = itemsInCart;
+    cartData.push({
+      prodImage,
+      prodName,
+      prodPrice,
+      prodColor,
+      prodSize,
+      prodQty,
+    });
+    localStorage.setItem("Labatt_Cart", JSON.stringify(cartData));
+    $("#cartCount").text(
+      JSON.parse(localStorage.getItem("Labatt_Cart")).length
+    );
+  }
+}
