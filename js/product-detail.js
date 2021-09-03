@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // Fetch products data
-  fetch("../data/productData.json")
+  fetch("https://bot-shirtly.github.io/Labatt/data/productData.json")
     .then((response) => {
       return response.json();
     })
