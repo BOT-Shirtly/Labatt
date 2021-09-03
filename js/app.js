@@ -40,6 +40,11 @@ routerApp.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "./views/order-complete.html",
       controller: "orderCompleteController",
     })
+    .state("my-orders", {
+      url: "/my-orders",
+      templateUrl: "./views/my-orders.html",
+      controller: "myOrdersController",
+    })
     .state("contact-us", {
       url: "/contact-us",
       templateUrl: "./views/contact-us.html",
@@ -92,5 +97,9 @@ routerApp.controller(
 );
 routerApp.controller(
   "partnersController",
+  function ($scope, $state, $timeout) {}
+);
+routerApp.controller(
+  "myOrdersController",
   function ($scope, $state, $timeout) {}
 );
