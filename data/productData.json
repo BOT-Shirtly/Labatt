@@ -1,0 +1,138 @@
+{
+  "Products": [
+    {
+      "productId": 1,
+      "productName": "Colby Copper Vacuum Bottle With Storage 17oz",
+      "productLink": "Colby-Copper-Vacuum-Bottle-With-Storage-17oz",
+      "productPrice": 20,
+      "productImage": "img/Bottle.png",
+      "producSizeChart": "",
+      "printProcess": "Laser",
+      "productSize": ["One-Size"],
+      "productColor": [
+        {
+          "name": "Black",
+          "image": "img/Bottle.png"
+        },
+        {
+          "name": "White",
+          "image": "img/Bottle.png"
+        }
+      ],
+      "productDescription": "Durable, double-wall stainless steel vacuum construction with copper insulation, which allows your beverage to stay cold for 48 hours and hot for at least 12 hours. The construction also prevents condensation on the outside of the bottle. On-trend, durable powder coating. Screw-on metal lid with comfort soft handling loop. Bottle features a 3 oz. removable rubberized base for storage and is anti-slip. Fits most standard car cup holders. 17oz. Decoration is done by laser etching and reveals the silver coating under the powder coated paint for a nice silver like imprint.",
+      "decorationArea": "3' tall x 1.5' wide",
+      "artPlacement": "On tumbler, - Center of art 1.5' up from bottom of powder coate",
+      "fulfillmentTimes": "8 to 12 business days",
+      "partner": "Labatt",
+      "artFileUrl": ""
+    },
+    {
+      "productId": 2,
+      "productName": "Budweiser Hoodie",
+      "productLink": "Budweiser-Hoodie",
+      "productPrice": 19,
+      "productImage": "img/Budweiser-Hoodie.jpeg",
+      "producSizeChart": "img/18500_Size_chart.jpeg",
+      "printProcess": "DTG",
+      "productSize": ["S", "M", "L", "XL", "2XL", "3XL"],
+      "productColor": [
+        {
+          "name": "Red",
+          "image": "img/Budweiser-Hoodie.png"
+        }
+      ],
+      "productDescription": "Gildan 18500 Heavy Blend Unisex Pullover Hoodie - 8 oz (US) 13.5 oz (CA), 50/50 preshrunk cotton/polyester, Classic fit, S – 3XL",
+      "decorationArea": "16' tall x 12' wide",
+      "artPlacement": "On hoodie, - Center of art 1.5' down from neck line",
+      "fulfillmentTimes": "5 to 10 business days",
+      "partner": "Labatt",
+      "artFileUrl": ""
+    },
+    {
+      "productId": 3,
+      "productName": "NFL Tee",
+      "productLink": "NFL-Tee",
+      "productPrice": 14,
+      "productImage": "img/NFL-Tee2.jpeg",
+      "producSizeChart": "img/64000_Size_chart.jpeg",
+      "printProcess": "DTG",
+      "productSize": ["S", "M", "L", "XL", "2XL", "3XL"],
+      "productColor": [
+        {
+          "name": "Charcoal",
+          "image": "img/NFL-Tee2.jpeg"
+        }
+      ],
+      "productDescription": "Gildan 64000 Softstyle Unisex T-Shirt - 5.3 oz, 100% pre-shrunk ring-spun cotton, Regular fit, S – 3XL",
+      "decorationArea": "16' tall x 12' wide",
+      "artPlacement": "On t-shirt, - Center of art 1.5' down from neck line",
+      "fulfillmentTimes": "5 to 10 business days",
+      "partner": "Labatt",
+      "artFileUrl": ""
+    },
+    {
+      "productId": 4,
+      "productName": "Thor Copper Vacuum Insulated Bottle 17oz",
+      "productLink": "Thor-Copper-Vacuum-Insulated-Bottle-17oz",
+      "productPrice": 16,
+      "productImage": "img/Insulated_Bottle.png",
+      "producSizeChart": "",
+      "printProcess": "Laser",
+      "productSize": ["One-Size"],
+      "productColor": [
+        {
+          "name": "Black",
+          "image": "img/Bottle.png"
+        },
+        {
+          "name": "Grey",
+          "image": "img/Bottle.png"
+        },
+        {
+          "name": "Navy",
+          "image": "img/Bottle.png"
+        },
+        {
+          "name": "Orange",
+          "image": "img/Bottle.png"
+        },
+        {
+          "name": "Red",
+          "image": "img/Bottle.png"
+        },
+        {
+          "name": "White",
+          "image": "img/Bottle.png"
+        }
+      ],
+      "productDescription": "Durable, double-wall stainless steel vacuum construction with copper insulation, which allows your beverage to stay cold for 48 hours and hot for at least 12 hours. The construction also prevents condensation on the outside of the bottle. On-trend, durable powder coating. Screw-on metal lid with comfort soft handling loop. Bottle features a 3 oz. removable rubberized base for storage and is anti-slip. Fits most standard car cup holders. 17oz. Decoration is done by laser etching and reveals the silver coating under the powder coated paint for a nice silver like imprint.",
+      "decorationArea": "3' tall x 1.5' wide",
+      "artPlacement": "On tumbler, - Center of art 1.5' up from bottom of powder coate",
+      "fulfillmentTimes": "8 to 12 business days",
+      "partner": "Labatt",
+      "artFileUrl": ""
+    },
+    {
+      "productId": 5,
+      "productName": "BostonPizza Budweiser Hoodie",
+      "productLink": "BostonPizza-Budweiser-Hoodie",
+      "productPrice": 20,
+      "productImage": "img/BostonPizza-Budweiser-Hoodie.jpeg",
+      "producSizeChart": "img/18500_Size_chart.jpeg",
+      "printProcess": "DTG",
+      "productSize": ["S", "M", "L", "XL", "2XL", "3XL"],
+      "productColor": [
+        {
+          "name": "Red",
+          "image": "img/BostonPizza-Budweiser-Hoodie.jpeg"
+        }
+      ],
+      "productDescription": "Gildan 18500 Heavy Blend Unisex Pullover Hoodie - 8 oz (US) 13.5 oz (CA), 50/50 preshrunk cotton/polyester, Classic fit, S – 3XL",
+      "decorationArea": "16' tall x 12' wide",
+      "artPlacement": "On hoodie, - Center of art 1.5' down from neck line",
+      "fulfillmentTimes": "5 to 10 business days",
+      "partner": "BostonPizza",
+      "artFileUrl": ""
+    }
+  ]
+}
