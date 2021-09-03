@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // Fetch products data
-  fetch("../data/productData.json")
+  fetch("https://bot-shirtly.github.io/Labatt/data/productData.json")
     .then((response) => {
       return response.json();
     })
@@ -36,5 +36,5 @@ $(document).ready(function () {
     });
 });
 function openProduct(product) {
-  window.location.replace("/#/product-detail?prod=" + product);
+  window.location.replace("/LabattLabatt/#/product-detail?prod=" + product);
 }
